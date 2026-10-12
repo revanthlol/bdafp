@@ -1,0 +1,4 @@
+1,amit,20,delhi,80,70,90
+2,priya,21,chennai,30,40,35
+3,arun,20,delhi,60,70,80
+4,neha,22,chennai,90,80,70

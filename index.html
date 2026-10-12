@@ -1,322 +1,150 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0c0c0e"><title>BDA Final Practical | Pig & Hive</title><meta name="description" content="Big Data Analytics final practical reference: 25 record programs, Pig and Hive code, input files and expected output."><link rel="canonical" href="https://bdafp.vercel.app/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta property="og:title" content="BDA Final Practical"><meta property="og:description" content="Pig & Hive. The complete final practical reference."><meta property="og:type" content="website"><meta property="og:url" content="https://bdafp.vercel.app/"><meta property="og:image" content="https://bdafp.vercel.app/share.svg"><meta name="twitter:card" content="summary"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"BDA Final Practical","description":"Pig and Hive final practical reference","url":"https://bdafp.vercel.app/"}</script><style>
 :root{color-scheme:dark;--bg:#0c0c0e;--panel:#131316;--line:#2a2a31;--text:#eeeef2;--muted:#aaaab5;--pig:#efc38c;--hive:#94c9e5}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:30px}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input{font:inherit}button,a,input,summary{-webkit-tap-highlight-color:transparent}a{color:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--hive);outline-offset:4px}.sidebar{position:fixed;inset:0 auto 0 0;width:292px;padding:28px 18px;background:#101012;border-right:1px solid var(--line);overflow-y:auto}.brand{display:block;text-decoration:none;font-weight:750;font-size:20px;padding:0 12px}.brand small{display:block;color:var(--muted);font:11px/2 system-ui;letter-spacing:1.8px;text-transform:uppercase}.search{display:block;margin:24px 8px 20px}.search span{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}.search input{width:100%;background:#19191d;border:1px solid #37373f;border-radius:5px;padding:10px 12px;color:var(--text)}.navgroup{color:#858591;font-size:10px;letter-spacing:1.3px;text-transform:uppercase;padding:22px 12px 8px}nav a{display:flex;gap:12px;padding:8px 12px;text-decoration:none;color:#b5b5bf;font-size:12px;line-height:1.5;border-radius:4px}nav a span{font:11px/1.7 ui-monospace,monospace;color:#777784;min-width:19px}nav a:hover,nav a.active{background:#242429;color:#fff}main{margin-left:292px;max-width:1120px;padding:58px 60px 80px}.intro{padding-bottom:35px;border-bottom:1px solid var(--line);margin-bottom:32px}.eyebrow{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;font-weight:700}.intro .eyebrow{color:var(--muted)}h1{font-size:clamp(30px,4vw,46px);letter-spacing:-1.8px;line-height:1.15;margin:16px 0}h2{font-size:23px;letter-spacing:-.5px;margin:2px 0;line-height:1.3}h3{font-size:12px;color:var(--muted);font-weight:500;margin:20px 0 8px}.intro p{color:var(--muted);max-width:600px}.setup{border:1px solid var(--line);padding:20px;background:var(--panel);margin-top:26px;border-radius:6px}.setup h2{font-size:15px;letter-spacing:0;margin-bottom:8px}.setup p{font-size:13px;margin:0 0 14px}.program{border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:26px;margin-bottom:26px;scroll-margin-top:25px}.program header{display:flex;align-items:center;gap:17px}.number{font:20px ui-monospace,monospace;color:#72727f;border-right:1px solid #37373e;padding-right:17px}.pig{color:var(--pig)}.hive{color:var(--hive)}.terminal{color:#b9d6ac}.note{color:var(--muted);font-size:13px;margin:16px 0 20px}.code{background:#0b0b0d;border:1px solid #29292f;border-radius:5px;overflow:hidden;margin:12px 0}.codebar{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #24242b;padding:8px 13px}.lang{font:700 10px system-ui;letter-spacing:1px;text-transform:uppercase}.copy{display:flex;align-items:center;gap:7px;background:transparent;color:#aaaab5;border:1px solid transparent;padding:5px 8px;border-radius:4px;font-size:11px;transition:background .18s,color .18s,transform .18s}.copy svg{width:14px;height:14px;transition:transform .22s}.copy:hover{background:#292930;color:white}.copy:active{transform:scale(.95)}.copy.copied{color:#b9d6ac;background:#1b291f}.copy.copied svg{transform:scale(1.12)}pre{margin:0;padding:19px;overflow-x:auto;tab-size:4;font:12px/1.8 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;color:#dcdce3}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.token-keyword{color:#f0af87}.token-function{color:#9ed1e5}.token-string{color:#afd1a0}.token-number{color:#e4c68a}.token-comment{color:#878795;font-style:italic}.token-type{color:#d9b5d3}.token-operator{color:#a9b7ce}details{margin:14px 0 0;border-top:1px solid #2a2a31}summary{cursor:pointer;list-style:none;font-size:12px;font-weight:600;padding:14px 0;display:flex;gap:10px;align-items:center}summary::-webkit-details-marker{display:none}summary:before{content:'›';font-size:20px;line-height:1;color:#a1a1ad;transition:transform .22s}details[open]>summary:before{transform:rotate(90deg)}summary span{font:10px ui-monospace,monospace;color:#888895;margin-left:auto;text-align:right}.detailcontent{padding-bottom:8px}.output{background:#0e0e10;border:1px solid var(--line);border-radius:4px;color:#bcbcc7}.tip{font-size:12px;color:#aaaab5;margin:15px 0 0;padding-left:12px;border-left:2px solid #51515e}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:12px}th,td{text-align:left;border-bottom:1px solid var(--line);padding:12px 10px;vertical-align:top}th{color:#9696a2;font-weight:500}td code{font-size:11px;color:#c9c9d1}.mobilebar{display:none}.close{display:none}#empty{color:var(--muted);padding:50px 0}[hidden]{display:none!important}footer{color:#777783;font-size:11px;padding-top:12px}@media(max-width:1100px){main{padding:45px 32px}.sidebar{width:264px}main{margin-left:264px}}@media(max-width:760px){.mobilebar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--line);background:#101012}.mobilebar button,.close{background:#25252b;color:white;border:1px solid #3a3a43;border-radius:4px;padding:8px 12px;font-size:12px}.sidebar{display:none;width:min(320px,88vw);z-index:2}.sidebar.open{display:block}.close{display:block;margin:0 12px 20px auto}main{margin-left:0;padding:32px 18px 50px}.program{padding:20px 16px}.setup{padding:16px}.number{font-size:17px;padding-right:12px}.program header{gap:12px}h2{font-size:20px}summary span{max-width:55%;overflow-wrap:anywhere}pre{padding:15px;font-size:11px}.backdrop.open{position:fixed;inset:0;background:#0009;z-index:1}body.menuopen{overflow:hidden}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before{transition:none!important;animation:none!important}}
-</style></head><body><div class="mobilebar"><strong>BDA / Final practical</strong><button id="menu" aria-expanded="false" aria-controls="sidebar">Programs</button></div><div class="backdrop" id="backdrop"></div><aside class="sidebar" id="sidebar"><button class="close" id="close">Close menu</button><a class="brand" href="#top">BDA<span style="color:#777783"> / </span>Final<small>Practical reference</small></a><label class="search"><span>Find a program</span><input id="search" type="search" placeholder="Search title, code or number…" autocomplete="off"></label><nav aria-label="Programs"><div class="navgroup">Pig operators & functions</div><a href="#p1"><span>01</span>LOAD and STORE</a><a href="#p2"><span>02</span>GROUP Data</a><a href="#p3"><span>03</span>GROUP Multiple Columns</a><a href="#p4"><span>04</span>JOIN</a><a href="#p5"><span>05</span>UNION</a><a href="#p6"><span>06</span>SPLIT</a><a href="#p7"><span>07</span>FILTER</a><a href="#p8"><span>08</span>ORDER BY</a><a href="#p9"><span>09</span>LIMIT</a><a href="#p10"><span>10</span>String Functions</a><a href="#p11"><span>11</span>Numeric Functions</a><a href="#p12"><span>12</span>Even or Odd</a><a href="#p13"><span>13</span>Vowel or Not</a><a href="#p14"><span>14</span>Add, Subtract and Multiply</a><a href="#p15"><span>15</span>Maximum Temperature</a><a href="#p16"><span>16</span>Maximum Salary by City</a><a href="#p17"><span>17</span>Regular Expression Filter</a><a href="#p18"><span>18</span>Calculate Percentage</a><a href="#p19"><span>19</span>Aggregation Functions</a><div class="navgroup">Hive operations</div><a href="#p20"><span>20</span>Hive Arithmetic and Logic</a><a href="#p21"><span>21</span>Hive Mathematical Operations</a><a href="#p22"><span>22</span>Hive String Operations</a><a href="#p23"><span>23</span>Hive Data Operations</a><div class="navgroup">Analysis</div><a href="#p24"><span>24</span>Employee Data Analysis</a><a href="#p25"><span>25</span>Student Marks Analysis</a><div class="navgroup">Extra</div><a href="#p26"><span>+</span>Word Count</a></nav></aside><main id="top"><div class="intro"><span class="eyebrow">Big Data Analytics · Final practical</span><h1>Pig & Hive,<br>ready for the practical.</h1><p>25 programs from the lab record, plus Word Count. Inputs, code and output in one place.</p><section class="setup"><h2>Before you start</h2><p>Keep the input files in your working directory. Run Pig with <code>pig -x local</code> and Hive with <code>hive</code>. Paste each program into its matching shell.</p><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cd ~/bda-final
-pig -x local</code></pre></div><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">hive</code></pre></div><p>Input files expand below each Pig program. Output row order may vary.</p></section></div><p id="empty" role="status" hidden>No matching programs.</p><article id="p1" class="program"><header><span class="number">01</span><div><span class="eyebrow pig">Pig</span><h2>LOAD and STORE</h2></div></header><p class="note">Load and print the data, then save it to a new output directory.</p><details><summary>Input files <span>student_data.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; student_data.txt &lt;&lt;&#x27;EOF&#x27;
-001,Rajiv,Reddy,9848022337,Hyderabad
-002,Siddarth,Battacharya,9848022338,Kolkata
-003,Rajesh,Khanna,9848022339,Delhi
-004,Preethi,Agarwal,9848022330,Pune
-005,Trupthi,Mohanthy,9848022336,Chennai
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;student_data.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (id:int, firstname:chararray, lastname:chararray, phone:chararray, city:chararray);
+</style></head><body><div class="mobilebar"><strong>BDA / Final practical</strong><button id="menu" aria-expanded="false" aria-controls="sidebar">Programs</button></div><div class="backdrop" id="backdrop"></div><aside class="sidebar" id="sidebar"><button class="close" id="close">Close menu</button><a class="brand" href="#top">BDA<span style="color:#777783"> / </span>Final<small>Practical reference</small></a><label class="search"><span>Find a program</span><input id="search" type="search" placeholder="Search title, code or number…" autocomplete="off"></label><nav aria-label="Programs"><div class="navgroup">Pig operators & functions</div><a href="#p1"><span>01</span>LOAD and STORE</a><a href="#p2"><span>02</span>GROUP Data</a><a href="#p3"><span>03</span>GROUP Multiple Columns</a><a href="#p4"><span>04</span>JOIN</a><a href="#p5"><span>05</span>UNION</a><a href="#p6"><span>06</span>SPLIT</a><a href="#p7"><span>07</span>FILTER</a><a href="#p8"><span>08</span>ORDER BY</a><a href="#p9"><span>09</span>LIMIT</a><a href="#p10"><span>10</span>String Functions</a><a href="#p11"><span>11</span>Numeric Functions</a><a href="#p12"><span>12</span>Even or Odd</a><a href="#p13"><span>13</span>Vowel or Not</a><a href="#p14"><span>14</span>Add, Subtract and Multiply</a><a href="#p15"><span>15</span>Maximum Temperature</a><a href="#p16"><span>16</span>Maximum Salary by City</a><a href="#p17"><span>17</span>Regular Expression Filter</a><a href="#p18"><span>18</span>Calculate Percentage</a><a href="#p19"><span>19</span>Aggregation Functions</a><div class="navgroup">Hive operations</div><a href="#p20"><span>20</span>Hive Arithmetic and Logic</a><a href="#p21"><span>21</span>Hive Mathematical Operations</a><a href="#p22"><span>22</span>Hive String Operations</a><a href="#p23"><span>23</span>Hive Data Operations</a><div class="navgroup">Analysis</div><a href="#p24"><span>24</span>Employee Data Analysis</a><a href="#p25"><span>25</span>Student Marks Analysis</a><div class="navgroup">Extra</div><a href="#p26"><span>+</span>Word Count</a></nav></aside><main id="top"><div class="intro"><span class="eyebrow">Big Data Analytics · Final practical</span><h1>Pig & Hive,<br>ready for the practical.</h1><p>25 programs from the lab record, plus Word Count. Inputs, code and output in one place.</p><section class="setup"><h2>Before you start</h2><p>Create <code>data1.txt</code> and <code>data2.txt</code> once. Every Pig program uses these same two files. Run Pig with <code>pig -x local</code> and Hive with <code>hive</code>. Paste each program into its matching shell.</p><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">mkdir -p ~/bda-final
+cd ~/bda-final</code></pre></div><details id="shared-inputs"><summary>Create the two input files</summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; data1.txt &lt;&lt;&#x27;EOF&#x27;
+1,amit,20,delhi,80,70,90
+2,priya,21,chennai,30,40,35
+3,arun,20,delhi,60,70,80
+4,neha,22,chennai,90,80,70
+EOF
+cat &gt; data2.txt &lt;&lt;&#x27;EOF&#x27;
+1,ravi,IT,delhi,60000,2024,32,0
+2,anita,HR,chennai,45000,2024,36,1
+3,karan,IT,delhi,75000,2025,34,0
+5,meena,HR,chennai,52000,2025,9999,0
+EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">pig -x local</code></pre></div><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">hive</code></pre></div><p><code>data1.txt</code>: id, name, age, city, m1, m2, m3.<br><code>data2.txt</code>: id, name, dept, city, salary, year, temp, quality.<br>Marks are out of 100. Temperature 9999 is invalid. Output row order may vary.</p></section></div><p id="empty" role="status" hidden>No matching programs.</p><article id="p1" class="program"><header><span class="number">01</span><div><span class="eyebrow pig">Pig</span><h2>LOAD and STORE</h2></div></header><p class="note">Load and print the data, then save it to a new output directory.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 DUMP student;
-STORE student INTO &#x27;output_p01&#x27; USING PigStorage(&#x27;,&#x27;);</code></pre></div><p class="tip">STORE requires a new output directory. Use a different name when rerunning.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>DUMP student</h3><pre class="output">(1,Rajiv,Reddy,9848022337,Hyderabad)
-(2,Siddarth,Battacharya,9848022338,Kolkata)
-(3,Rajesh,Khanna,9848022339,Delhi)
-(4,Preethi,Agarwal,9848022330,Pune)
-(5,Trupthi,Mohanthy,9848022336,Chennai)</pre></div></details></article><article id="p2" class="program"><header><span class="number">02</span><div><span class="eyebrow pig">Pig</span><h2>GROUP Data</h2></div></header><p class="note">Group students by age.</p><details><summary>Input files <span>student_data5.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; student_data5.txt &lt;&lt;&#x27;EOF&#x27;
-001,Rajiv,Reddy,21,9848022337,Hyderabad
-002,Siddarth,Battacharya,23,9848022338,Kolkata
-003,Rajesh,Khanna,24,9848022339,Delhi
-004,Preethi,Agarwal,24,9848022330,Pune
-005,Trupthi,Mohanthy,20,9848022336,Chennai
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;student_data5.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (id:int, firstname:chararray, lastname:chararray, age:int, phone:chararray, city:chararray);
+STORE student INTO &#x27;output_p01&#x27; USING PigStorage(&#x27;,&#x27;);</code></pre></div><p class="tip">Use a new STORE output directory each time.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(1,amit,20,delhi,80,70,90)
+(2,priya,21,chennai,30,40,35)
+(3,arun,20,delhi,60,70,80)
+(4,neha,22,chennai,90,80,70)</pre></div></details></article><article id="p2" class="program"><header><span class="number">02</span><div><span class="eyebrow pig">Pig</span><h2>GROUP Data</h2></div></header><p class="note">Group students by age.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 grouped = GROUP student BY age;
-DUMP grouped;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>DUMP grouped</h3><pre class="output">(20,{(5,Trupthi,Mohanthy,20,9848022336,Chennai)})
-(21,{(1,Rajiv,Reddy,21,9848022337,Hyderabad)})
-(23,{(2,Siddarth,Battacharya,23,9848022338,Kolkata)})
-(24,{(3,Rajesh,Khanna,24,9848022339,Delhi),(4,Preethi,Agarwal,24,9848022330,Pune)})</pre></div></details></article><article id="p3" class="program"><header><span class="number">03</span><div><span class="eyebrow pig">Pig</span><h2>GROUP Multiple Columns</h2></div></header><p class="note">Use (age, city) as a composite group key.</p><details><summary>Input files <span>student_data3.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; student_data3.txt &lt;&lt;&#x27;EOF&#x27;
-001,Rajiv,Reddy,21,9848022337,Hyderabad
-002,Siddarth,Battacharya,23,9848022338,Kolkata
-003,Rajesh,Khanna,24,9848022339,Delhi
-004,Preethi,Agarwal,24,9848022330,Delhi
-005,Trupthi,Mohanthy,20,9848022336,Chennai
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;student_data3.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (id:int, firstname:chararray, lastname:chararray, age:int, phone:chararray, city:chararray);
+DUMP grouped;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(20,{(1,amit,20,delhi,80,70,90),(3,arun,20,delhi,60,70,80)})
+(21,{(2,priya,21,chennai,30,40,35)})
+(22,{(4,neha,22,chennai,90,80,70)})</pre></div></details></article><article id="p3" class="program"><header><span class="number">03</span><div><span class="eyebrow pig">Pig</span><h2>GROUP Multiple Columns</h2></div></header><p class="note">Group students by age and city.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 grouped = GROUP student BY (age, city);
-DUMP grouped;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>DUMP grouped</h3><pre class="output">((20,Chennai),{(5,Trupthi,Mohanthy,20,9848022336,Chennai)})
-((21,Hyderabad),{(1,Rajiv,Reddy,21,9848022337,Hyderabad)})
-((23,Kolkata),{(2,Siddarth,Battacharya,23,9848022338,Kolkata)})
-((24,Delhi),{(3,Rajesh,Khanna,24,9848022339,Delhi),(4,Preethi,Agarwal,24,9848022330,Delhi)})</pre></div></details></article><article id="p4" class="program"><header><span class="number">04</span><div><span class="eyebrow pig">Pig</span><h2>JOIN</h2></div></header><p class="note">Match customer IDs to order IDs.</p><details><summary>Input files <span>customers.txt, orders.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; customers.txt &lt;&lt;&#x27;EOF&#x27;
-1,Ramesh,32,Ahmedabad,2000.00
-2,Khilan,25,Delhi,1500.00
-3,Koushik,23,Kota,2000.00
-4,chaitali,25,mumbai,6500.00
-5,hardik,27,bhopal,8500.00
-6,komal,22,mp,4500.00
-EOF</code></pre></div><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; orders.txt &lt;&lt;&#x27;EOF&#x27;
-101,1,Laptop
-102,2,Mobile
-103,3,TV
-104,5,Watch
-105,7,Camera
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">customer = LOAD &#x27;customers.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (id:int, name:chararray, age:int, place:chararray, amount:float);
-orders = LOAD &#x27;orders.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (orderid:int, id:int, product:chararray);
-inner_join = JOIN customer BY id, orders BY id;
+DUMP grouped;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">((20,delhi),{(1,amit,20,delhi,80,70,90),(3,arun,20,delhi,60,70,80)})
+((21,chennai),{(2,priya,21,chennai,30,40,35)})
+((22,chennai),{(4,neha,22,chennai,90,80,70)})</pre></div></details></article><article id="p4" class="program"><header><span class="number">04</span><div><span class="eyebrow pig">Pig</span><h2>JOIN</h2></div></header><p class="note">Join the two files on id.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a>, <a href="#shared-inputs"><code>data2.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
+emp = LOAD &#x27;data2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, dept:chararray, city:chararray, salary:int, year:int, temp:int, quality:int);
+inner_join = JOIN student BY id , emp BY id;
 DUMP inner_join;
-
-left_join = JOIN customer BY id LEFT OUTER, orders BY id;
+left_join = JOIN student BY id LEFT OUTER, emp BY id;
 DUMP left_join;
-
-right_join = JOIN customer BY id RIGHT OUTER, orders BY id;
+right_join = JOIN student BY id RIGHT OUTER, emp BY id;
 DUMP right_join;
-
-full_join = JOIN customer BY id FULL OUTER, orders BY id;
+full_join = JOIN student BY id FULL OUTER, emp BY id;
 DUMP full_join;
-
-customer_copy = FOREACH customer GENERATE *;
-self_join = JOIN customer BY id, customer_copy BY id;
-DUMP self_join;</code></pre></div><p class="tip">Outer joins keep unmatched rows with null fields. A self join uses two relation aliases.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>Inner join</h3><pre class="output">(1,Ramesh,32,Ahmedabad,2000.0,101,1,Laptop)
-(2,Khilan,25,Delhi,1500.0,102,2,Mobile)
-(3,Koushik,23,Kota,2000.0,103,3,TV)
-(5,hardik,27,bhopal,8500.0,104,5,Watch)</pre></div></details></article><article id="p5" class="program"><header><span class="number">05</span><div><span class="eyebrow pig">Pig</span><h2>UNION</h2></div></header><p class="note">Combine two relations with the same schema.</p><details><summary>Input files <span>unionop1.txt, unionop2.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; unionop1.txt &lt;&lt;&#x27;EOF&#x27;
-001,rajiv,9898987574,hyd
-002,sidh,9832983298,kolkata
-003,rajesh,3478238976,delhi
-004,preethi,9843894343,pune
-005,trupathi,8584838590,chennai
-EOF</code></pre></div><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; unionop2.txt &lt;&lt;&#x27;EOF&#x27;
-006,komal,9784378789,trivandrum
-007,bharath,9876452389,chennai
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">op1 = LOAD &#x27;unionop1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (id:int, name:chararray, phone:chararray, city:chararray);
-op2 = LOAD &#x27;unionop2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (id:int, name:chararray, phone:chararray, city:chararray);
-all_data = UNION op1, op2;
-DUMP all_data;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>DUMP all_data</h3><pre class="output">(1,rajiv,9898987574,hyd)
-(2,sidh,9832983298,kolkata)
-(3,rajesh,3478238976,delhi)
-(4,preethi,9843894343,pune)
-(5,trupathi,8584838590,chennai)
-(6,komal,9784378789,trivandrum)
-(7,bharath,9876452389,chennai)</pre></div></details></article><article id="p6" class="program"><header><span class="number">06</span><div><span class="eyebrow pig">Pig</span><h2>SPLIT</h2></div></header><p class="note">Separate Chennai records from the remaining records.</p><details><summary>Input files <span>unionop1.txt, unionop2.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; unionop1.txt &lt;&lt;&#x27;EOF&#x27;
-001,rajiv,9898987574,hyd
-002,sidh,9832983298,kolkata
-003,rajesh,3478238976,delhi
-004,preethi,9843894343,pune
-005,trupathi,8584838590,chennai
-EOF</code></pre></div><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; unionop2.txt &lt;&lt;&#x27;EOF&#x27;
-006,komal,9784378789,trivandrum
-007,bharath,9876452389,chennai
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">op1 = LOAD &#x27;unionop1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (id:int, name:chararray, phone:chararray, city:chararray);
-op2 = LOAD &#x27;unionop2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (id:int, name:chararray, phone:chararray, city:chararray);
-all_data = UNION op1, op2;
-SPLIT all_data INTO chennai_group IF city == &#x27;chennai&#x27;,
-    other_group IF city != &#x27;chennai&#x27;;
-DUMP chennai_group;
-DUMP other_group;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>chennai_group</h3><pre class="output">(5,trupathi,8584838590,chennai)
-(7,bharath,9876452389,chennai)</pre><h3>other_group</h3><pre class="output">(1,rajiv,9898987574,hyd)
-(2,sidh,9832983298,kolkata)
-(3,rajesh,3478238976,delhi)
-(4,preethi,9843894343,pune)
-(6,komal,9784378789,trivandrum)</pre></div></details></article><article id="p7" class="program"><header><span class="number">07</span><div><span class="eyebrow pig">Pig</span><h2>FILTER</h2></div></header><p class="note">Keep records whose city is Chennai.</p><details><summary>Input files <span>unionop1.txt, unionop2.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; unionop1.txt &lt;&lt;&#x27;EOF&#x27;
-001,rajiv,9898987574,hyd
-002,sidh,9832983298,kolkata
-003,rajesh,3478238976,delhi
-004,preethi,9843894343,pune
-005,trupathi,8584838590,chennai
-EOF</code></pre></div><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; unionop2.txt &lt;&lt;&#x27;EOF&#x27;
-006,komal,9784378789,trivandrum
-007,bharath,9876452389,chennai
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">op1 = LOAD &#x27;unionop1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (id:int, name:chararray, phone:chararray, city:chararray);
-op2 = LOAD &#x27;unionop2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (id:int, name:chararray, phone:chararray, city:chararray);
-all_data = UNION op1, op2;
-chennai_users = FILTER all_data BY city == &#x27;chennai&#x27;;
-DUMP chennai_users;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>DUMP chennai_users</h3><pre class="output">(5,trupathi,8584838590,chennai)
-(7,bharath,9876452389,chennai)</pre></div></details></article><article id="p8" class="program"><header><span class="number">08</span><div><span class="eyebrow pig">Pig</span><h2>ORDER BY</h2></div></header><p class="note">Sort students by age, highest first.</p><details><summary>Input files <span>stux_data.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; stux_data.txt &lt;&lt;&#x27;EOF&#x27;
-001,Rajiv,Reddy,21,9848022337,Hyderabad
-002,siddarth,Battacharya,22,9848022338,Kolkata
-003,Rajesh,Khanna,22,9848022339,Delhi
-004,Preethi,Agarwal,21,9848022330,Pune
-005,Trupthi,Mohanthy,23,9848022336,Bhuwaneshwar
-006,Archana,Mishra,23,9848022335,Chennai
-007,Komal,Nayak,24,9848022334,trivendram
-008,Bharathi,Nambiayar,24,9848022333,Chennai
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;stux_data.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (id:int, firstname:chararray, lastname:chararray, age:int, phone:chararray, city:chararray);
-ordered = ORDER student BY age DESC;
-DUMP ordered;</code></pre></div><p class="tip">Rows with equal ages may appear in a different order.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>DUMP ordered</h3><pre class="output">(7,Komal,Nayak,24,9848022334,trivendram)
-(8,Bharathi,Nambiayar,24,9848022333,Chennai)
-(5,Trupthi,Mohanthy,23,9848022336,Bhuwaneshwar)
-(6,Archana,Mishra,23,9848022335,Chennai)
-(2,siddarth,Battacharya,22,9848022338,Kolkata)
-(3,Rajesh,Khanna,22,9848022339,Delhi)
-(1,Rajiv,Reddy,21,9848022337,Hyderabad)
-(4,Preethi,Agarwal,21,9848022330,Pune)</pre></div></details></article><article id="p9" class="program"><header><span class="number">09</span><div><span class="eyebrow pig">Pig</span><h2>LIMIT</h2></div></header><p class="note">Return at most four records.</p><details><summary>Input files <span>stux_data.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; stux_data.txt &lt;&lt;&#x27;EOF&#x27;
-001,Rajiv,Reddy,21,9848022337,Hyderabad
-002,siddarth,Battacharya,22,9848022338,Kolkata
-003,Rajesh,Khanna,22,9848022339,Delhi
-004,Preethi,Agarwal,21,9848022330,Pune
-005,Trupthi,Mohanthy,23,9848022336,Bhuwaneshwar
-006,Archana,Mishra,23,9848022335,Chennai
-007,Komal,Nayak,24,9848022334,trivendram
-008,Bharathi,Nambiayar,24,9848022333,Chennai
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;stux_data.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (id:int, firstname:chararray, lastname:chararray, age:int, phone:chararray, city:chararray);
-limited = LIMIT student 4;
-DUMP limited;</code></pre></div><p class="tip">LIMIT alone does not guarantee which records are returned. Use ORDER first when order matters.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>DUMP limited</h3><pre class="output">(1,Rajiv,Reddy,21,9848022337,Hyderabad)
-(2,siddarth,Battacharya,22,9848022338,Kolkata)
-(3,Rajesh,Khanna,22,9848022339,Delhi)
-(4,Preethi,Agarwal,21,9848022330,Pune)</pre></div></details></article><article id="p10" class="program"><header><span class="number">10</span><div><span class="eyebrow pig">Pig</span><h2>String Functions</h2></div></header><p class="note">Change case, concatenate names and measure string length.</p><details><summary>Input files <span>stux_data.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; stux_data.txt &lt;&lt;&#x27;EOF&#x27;
-001,Rajiv,Reddy,21,9848022337,Hyderabad
-002,siddarth,Battacharya,22,9848022338,Kolkata
-003,Rajesh,Khanna,22,9848022339,Delhi
-004,Preethi,Agarwal,21,9848022330,Pune
-005,Trupthi,Mohanthy,23,9848022336,Bhuwaneshwar
-006,Archana,Mishra,23,9848022335,Chennai
-007,Komal,Nayak,24,9848022334,trivendram
-008,Bharathi,Nambiayar,24,9848022333,Chennai
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;stux_data.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (id:int, firstname:chararray, lastname:chararray, age:int, phone:chararray, city:chararray);
-strings = FOREACH student GENERATE
-    CONCAT(firstname, lastname), UCFIRST(firstname),
-    UPPER(lastname), SIZE(CONCAT(firstname, lastname));
-DUMP strings;
-
-cases = FOREACH student GENERATE firstname, lastname,
-    LOWER(lastname), UCFIRST(firstname), LCFIRST(lastname);
-DUMP cases;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>DUMP strings</h3><pre class="output">(RajivReddy,Rajiv,REDDY,10)
-(siddarthBattacharya,Siddarth,BATTACHARYA,19)
-(RajeshKhanna,Rajesh,KHANNA,12)
-(PreethiAgarwal,Preethi,AGARWAL,14)
-(TrupthiMohanthy,Trupthi,MOHANTHY,15)
-(ArchanaMishra,Archana,MISHRA,13)
-(KomalNayak,Komal,NAYAK,10)
-(BharathiNambiayar,Bharathi,NAMBIAYAR,17)</pre><h3>DUMP cases</h3><pre class="output">(Rajiv,Reddy,reddy,Rajiv,reddy)
-(siddarth,Battacharya,battacharya,Siddarth,battacharya)
-(Rajesh,Khanna,khanna,Rajesh,khanna)
-(Preethi,Agarwal,agarwal,Preethi,agarwal)
-(Trupthi,Mohanthy,mohanthy,Trupthi,mohanthy)
-(Archana,Mishra,mishra,Archana,mishra)
-(Komal,Nayak,nayak,Komal,nayak)
-(Bharathi,Nambiayar,nambiayar,Bharathi,nambiayar)</pre></div></details></article><article id="p11" class="program"><header><span class="number">11</span><div><span class="eyebrow pig">Pig</span><h2>Numeric Functions</h2></div></header><p class="note">Calculate square root, cube root, ceiling, floor and exponential.</p><details><summary>Input files <span>math_numbers.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; math_numbers.txt &lt;&lt;&#x27;EOF&#x27;
-5
-16.0
-2.5
-5.9
-3.1
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">numbers = LOAD &#x27;math_numbers.txt&#x27; USING PigStorage(&#x27;\t&#x27;)
-    AS (num:double);
-result = FOREACH numbers GENERATE num, SQRT(num), CBRT(num),
-    CEIL(num), FLOOR(num), EXP(num);
-DUMP result;</code></pre></div><p class="tip">Floating-point digits can vary. Inputs use a separate file from program 14.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>Approximate numeric output</h3><pre class="output">(5.0,2.23606798,1.70997595,5,5,148.413159)
-(16.0,4,2.5198421,16,16,8886110.52)
-(2.5,1.58113883,1.35720881,3,2,12.182494)
-(5.9,2.42899156,1.80696887,6,5,365.037468)
-(3.1,1.76068169,1.45809974,4,3,22.1979513)</pre></div></details></article><article id="p12" class="program"><header><span class="number">12</span><div><span class="eyebrow pig">Pig</span><h2>Even or Odd</h2></div></header><p class="note">Use remainder modulo 2 to classify each number.</p><details><summary>Input files <span>data.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; data.txt &lt;&lt;&#x27;EOF&#x27;
-1
-4
-7
-8
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">numbers = LOAD &#x27;data.txt&#x27; USING PigStorage(&#x27;\t&#x27;)
-    AS (value:int);
-result = FOREACH numbers GENERATE value,
-    (value % 2 == 0 ? &#x27;EVEN&#x27; : &#x27;ODD&#x27;);
-DUMP result;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>DUMP result</h3><pre class="output">(1,ODD)
-(4,EVEN)
-(7,ODD)
-(8,EVEN)</pre></div></details></article><article id="p13" class="program"><header><span class="number">13</span><div><span class="eyebrow pig">Pig</span><h2>Vowel or Not</h2></div></header><p class="note">Classify each lowercase input character.</p><details><summary>Input files <span>alpha.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; alpha.txt &lt;&lt;&#x27;EOF&#x27;
-a
-b
-o
-u
-t
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">letters = LOAD &#x27;alpha.txt&#x27; USING PigStorage(&#x27;\t&#x27;)
-    AS (letter:chararray);
+student_copy = FOREACH student GENERATE *;
+self_join = JOIN student BY id, student_copy BY id;
+DUMP self_join;</code></pre></div><p class="tip">Shown: inner join. Student 4 and employee 5 demonstrate unmatched outer-join records.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(1,amit,20,delhi,80,70,90,1,ravi,IT,delhi,60000,2024,32,0)
+(2,priya,21,chennai,30,40,35,2,anita,HR,chennai,45000,2024,36,1)
+(3,arun,20,delhi,60,70,80,3,karan,IT,delhi,75000,2025,34,0)</pre></div></details></article><article id="p5" class="program"><header><span class="number">05</span><div><span class="eyebrow pig">Pig</span><h2>UNION</h2></div></header><p class="note">Project matching columns from both files, then combine them.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a>, <a href="#shared-inputs"><code>data2.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
+emp = LOAD &#x27;data2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, dept:chararray, city:chararray, salary:int, year:int, temp:int, quality:int);
+students = FOREACH student GENERATE id, name, city;
+employees = FOREACH emp GENERATE id, name, city;
+combined = UNION students, employees;
+DUMP combined;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(1,amit,delhi)
+(2,priya,chennai)
+(3,arun,delhi)
+(4,neha,chennai)
+(1,ravi,delhi)
+(2,anita,chennai)
+(3,karan,delhi)
+(5,meena,chennai)</pre></div></details></article><article id="p6" class="program"><header><span class="number">06</span><div><span class="eyebrow pig">Pig</span><h2>SPLIT</h2></div></header><p class="note">Split students into Chennai and other cities.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
+SPLIT student INTO chennai IF city == &#x27;chennai&#x27;,
+    others IF city != &#x27;chennai&#x27;;
+DUMP chennai;
+DUMP others;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>chennai</h3><pre class="output">(2,priya,21,chennai,30,40,35)
+(4,neha,22,chennai,90,80,70)</pre><h3>others</h3><pre class="output">(1,amit,20,delhi,80,70,90)
+(3,arun,20,delhi,60,70,80)</pre></div></details></article><article id="p7" class="program"><header><span class="number">07</span><div><span class="eyebrow pig">Pig</span><h2>FILTER</h2></div></header><p class="note">Keep records whose city is Chennai.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
+filtered = FILTER student BY city == &#x27;chennai&#x27;;
+DUMP filtered;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(2,priya,21,chennai,30,40,35)
+(4,neha,22,chennai,90,80,70)</pre></div></details></article><article id="p8" class="program"><header><span class="number">08</span><div><span class="eyebrow pig">Pig</span><h2>ORDER BY</h2></div></header><p class="note">Sort by age descending, then id for ties.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
+ordered = ORDER student BY age DESC, id ASC;
+DUMP ordered;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(4,neha,22,chennai,90,80,70)
+(2,priya,21,chennai,30,40,35)
+(1,amit,20,delhi,80,70,90)
+(3,arun,20,delhi,60,70,80)</pre></div></details></article><article id="p9" class="program"><header><span class="number">09</span><div><span class="eyebrow pig">Pig</span><h2>LIMIT</h2></div></header><p class="note">Return the first two students by id.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
+ordered = ORDER student BY id ASC;
+limited = LIMIT ordered 2;
+DUMP limited;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(1,amit,20,delhi,80,70,90)
+(2,priya,21,chennai,30,40,35)</pre></div></details></article><article id="p10" class="program"><header><span class="number">10</span><div><span class="eyebrow pig">Pig</span><h2>String Functions</h2></div></header><p class="note">Demonstrate concatenation, case conversion and string length.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
+strings = FOREACH student GENERATE CONCAT(name, city),
+    UCFIRST(name), UPPER(name), LOWER(city), LCFIRST(UCFIRST(name)), SIZE(name);
+DUMP strings;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(amitdelhi,Amit,AMIT,delhi,amit,4)
+(priyachennai,Priya,PRIYA,chennai,priya,5)
+(arundelhi,Arun,ARUN,delhi,arun,4)
+(nehachennai,Neha,NEHA,chennai,neha,4)</pre></div></details></article><article id="p11" class="program"><header><span class="number">11</span><div><span class="eyebrow pig">Pig</span><h2>Numeric Functions</h2></div></header><p class="note">Use age as the number; age / 3.0 demonstrates ceiling and floor.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
+result = FOREACH student GENERATE age, SQRT(age), CBRT(age),
+    CEIL(age / 3.0), FLOOR(age / 3.0), EXP(age);
+DUMP result;</code></pre></div><p class="tip">Numeric output is approximate; floating-point digits may vary.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>Approximate output</h3><pre class="output">(20,4.472136,2.7144176,7,6,4.851652e+08)
+(21,4.5825757,2.7589242,7,7,1.3188157e+09)
+(20,4.472136,2.7144176,7,6,4.851652e+08)
+(22,4.6904158,2.8020393,8,7,3.5849128e+09)</pre></div></details></article><article id="p12" class="program"><header><span class="number">12</span><div><span class="eyebrow pig">Pig</span><h2>Even or Odd</h2></div></header><p class="note">Check whether each age is even or odd.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
+result = FOREACH student GENERATE age, (age % 2 == 0 ? &#x27;EVEN&#x27; : &#x27;ODD&#x27;);
+DUMP result;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(20,EVEN)
+(21,ODD)
+(20,EVEN)
+(22,EVEN)</pre></div></details></article><article id="p13" class="program"><header><span class="number">13</span><div><span class="eyebrow pig">Pig</span><h2>Vowel or Not</h2></div></header><p class="note">Check the first character of each name.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
+letters = FOREACH student GENERATE SUBSTRING(name, 0, 1) AS letter;
 result = FOREACH letters GENERATE letter,
-    (letter MATCHES &#x27;[aeiou]&#x27; ? &#x27;VOWEL&#x27; : &#x27;CONSONANT&#x27;);
-DUMP result;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>DUMP result</h3><pre class="output">(a,VOWEL)
-(b,CONSONANT)
-(o,VOWEL)
-(u,VOWEL)
-(t,CONSONANT)</pre></div></details></article><article id="p14" class="program"><header><span class="number">14</span><div><span class="eyebrow pig">Pig</span><h2>Add, Subtract and Multiply</h2></div></header><p class="note">Calculate all three operations on each pair.</p><details><summary>Input files <span>pairs.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; pairs.txt &lt;&lt;&#x27;EOF&#x27;
-100,200
-300,400
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">numbers = LOAD &#x27;pairs.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (a:int, b:int);
-result = FOREACH numbers GENERATE a, b,
-    a + b AS added, a - b AS subtracted, a * b AS multiplied;
-DUMP result;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>a, b, added, subtracted, multiplied</h3><pre class="output">(100,200,300,-100,20000)
-(300,400,700,-100,120000)</pre></div></details></article><article id="p15" class="program"><header><span class="number">15</span><div><span class="eyebrow pig">Pig</span><h2>Maximum Temperature</h2></div></header><p class="note">Filter invalid readings, then find the maximum temperature per year.</p><details><summary>Input files <span>sample.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; sample.txt &lt;&lt;&#x27;EOF&#x27;
-1950,0,1
-1950,22,1
-1950,-11,1
-1949,48,1
-1949,42,1
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">records = LOAD &#x27;sample.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (year:chararray, temperature:int, quality:int);
-valid = FILTER records BY temperature != 9999 AND
+    (letter MATCHES &#x27;[aeiou]&#x27; ? &#x27;VOWEL&#x27; : &#x27;NOT VOWEL&#x27;);
+DUMP result;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(a,VOWEL)
+(p,NOT VOWEL)
+(a,VOWEL)
+(n,NOT VOWEL)</pre></div></details></article><article id="p14" class="program"><header><span class="number">14</span><div><span class="eyebrow pig">Pig</span><h2>Add, Subtract and Multiply</h2></div></header><p class="note">Add, subtract and multiply the first two marks.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
+result = FOREACH student GENERATE m1, m2,
+    m1 + m2, m1 - m2, m1 * m2;
+DUMP result;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(80,70,150,10,5600)
+(30,40,70,-10,1200)
+(60,70,130,-10,4200)
+(90,80,170,10,7200)</pre></div></details></article><article id="p15" class="program"><header><span class="number">15</span><div><span class="eyebrow pig">Pig</span><h2>Maximum Temperature</h2></div></header><p class="note">Use the year, temperature and quality fields in data2.txt.</p><p class="note">Input: <a href="#shared-inputs"><code>data2.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">emp = LOAD &#x27;data2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, dept:chararray, city:chararray, salary:int, year:int, temp:int, quality:int);
+valid = FILTER emp BY temp != 9999 AND
     (quality == 0 OR quality == 1 OR quality == 4 OR quality == 5 OR quality == 9);
 grouped = GROUP valid BY year;
-max_temp = FOREACH grouped GENERATE group, MAX(valid.temperature);
-DUMP max_temp;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>DUMP max_temp</h3><pre class="output">(1949,48)
-(1950,22)</pre></div></details></article><article id="p16" class="program"><header><span class="number">16</span><div><span class="eyebrow pig">Pig</span><h2>Maximum Salary by City</h2></div></header><p class="note">Return the highest-paid employee records in each city.</p><details><summary>Input files <span>empdata.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; empdata.txt &lt;&lt;&#x27;EOF&#x27;
-03 Amit Delhi India 12000
-04 Anil Delhi India 15000
-05 Deepak Delhi India 34000
-06 Fahed Agra India 45000
-07 Ravi Patna India 98777
-08 Avinash Punjab India 120000
-09 Saajan Punjab India 54000
-001 Harit Delhi India 20000
-002 Hardy Agra India 20000
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">employees = LOAD &#x27;empdata.txt&#x27; USING PigStorage(&#x27; &#x27;)
-    AS (eno:int, name:chararray, city:chararray, country:chararray, salary:int);
-grouped = GROUP employees BY city;
-maxima = FOREACH grouped GENERATE group AS city, MAX(employees.salary) AS salary;
-matched = JOIN employees BY (city, salary), maxima BY (city, salary);
-result = FOREACH matched GENERATE employees::eno, employees::name,
-    employees::city, employees::country, employees::salary;
-DUMP result;</code></pre></div><p class="tip">Matching both city and salary avoids cross-city matches. Ties keep all highest-paid employees.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>DUMP result</h3><pre class="output">(5,Deepak,Delhi,India,34000)
-(6,Fahed,Agra,India,45000)
-(7,Ravi,Patna,India,98777)
-(8,Avinash,Punjab,India,120000)</pre></div></details></article><article id="p17" class="program"><header><span class="number">17</span><div><span class="eyebrow pig">Pig</span><h2>Regular Expression Filter</h2></div></header><p class="note">Keep names that match p.*.</p><details><summary>Input files <span>input.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; input.txt &lt;&lt;&#x27;EOF&#x27;
-1,pankaj,45
-2,roshan,35
-3,piyush,34
-4,kamal,43
-5,priya,46
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">students = LOAD &#x27;input.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (id:int, name:chararray, marks:int);
-filtered = FILTER students BY name MATCHES &#x27;p.*&#x27;;
-DUMP filtered;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>DUMP filtered</h3><pre class="output">(1,pankaj,45)
-(3,piyush,34)
-(5,priya,46)</pre></div></details></article><article id="p18" class="program"><header><span class="number">18</span><div><span class="eyebrow pig">Pig</span><h2>Calculate Percentage</h2></div></header><p class="note">Average six subjects, each marked out of 100.</p><details><summary>Input files <span>student.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; student.txt &lt;&lt;&#x27;EOF&#x27;
-1001,76,72,85,75,84,75
-1002,77,51,90,61,76,69
-1003,73,72,85,87,78,79
-1004,75,73,86,88,77,77
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">marks = LOAD &#x27;student.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (rollno:int, sub1:int, sub2:int, sub3:int, sub4:int, sub5:int, sub6:int);
-percent = FOREACH marks GENERATE rollno,
-    (sub1 + sub2 + sub3 + sub4 + sub5 + sub6) / 6.0 AS percentage;
-DUMP percent;</code></pre></div><p class="tip">Dividing by 6.0 produces a decimal result; all six subjects are out of 100.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>Approximate percentage output</h3><pre class="output">(1001,77.833333)
-(1002,70.666667)
-(1003,79.0)
-(1004,79.333333)</pre></div></details></article><article id="p19" class="program"><header><span class="number">19</span><div><span class="eyebrow pig">Pig</span><h2>Aggregation Functions</h2></div></header><p class="note">Calculate MAX, MIN, COUNT, SUM and AVG by store.</p><details><summary>Input files <span>product.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; product.txt &lt;&lt;&#x27;EOF&#x27;
-BathSoap,101,2001,5
-cupcake,102,2001,30
-peanuts,101,2001,100
-computer,103,2011,40
-tablet,103,2011,100
-bread,102,2004,80
-oil,101,2011,2
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">products = LOAD &#x27;product.txt&#x27; USING PigStorage(&#x27;,&#x27;)
-    AS (product:chararray, store:int, year:int, quantity:int);
-grouped = GROUP products BY store;
-summary = FOREACH grouped GENERATE group AS store,
-    MAX(products.quantity), MIN(products.quantity), COUNT(products),
-    SUM(products.quantity), ROUND(AVG(products.quantity) * 100) / 100.0;
-DUMP summary;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>store, max, min, count, sum, average</h3><pre class="output">(101,100,2,3,107,35.67)
-(102,80,30,2,110,55.0)
-(103,100,40,2,140,70.0)</pre></div></details></article><article id="p20" class="program"><header><span class="number">20</span><div><span class="eyebrow hive">Hive</span><h2>Hive Arithmetic and Logic</h2></div></header><p class="note">Evaluate arithmetic, bitwise, comparison and logical expressions.</p><div class="code"><div class="codebar"><span class="lang hive">Hive</span><button class="copy" aria-label="Copy Hive code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="hive">Select 20+30;
+maximum = FOREACH grouped GENERATE group, MAX(valid.temp);
+DUMP maximum;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(2024,36)
+(2025,34)</pre></div></details></article><article id="p16" class="program"><header><span class="number">16</span><div><span class="eyebrow pig">Pig</span><h2>Maximum Salary by City</h2></div></header><p class="note">Find the highest-paid employee in each city.</p><p class="note">Input: <a href="#shared-inputs"><code>data2.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">emp = LOAD &#x27;data2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, dept:chararray, city:chararray, salary:int, year:int, temp:int, quality:int);
+grouped = GROUP emp BY city;
+maxima = FOREACH grouped GENERATE group AS city, MAX(emp.salary) AS salary;
+matched = JOIN emp BY (city, salary), maxima BY (city, salary);
+result = FOREACH matched GENERATE emp::id, emp::name, emp::city, emp::salary;
+DUMP result;</code></pre></div><p class="tip">Ties retain all employees with the maximum salary.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(5,meena,chennai,52000)
+(3,karan,delhi,75000)</pre></div></details></article><article id="p17" class="program"><header><span class="number">17</span><div><span class="eyebrow pig">Pig</span><h2>Regular Expression Filter</h2></div></header><p class="note">Keep names starting with p.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
+filtered = FILTER student BY name MATCHES &#x27;p.*&#x27;;
+DUMP filtered;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(2,priya,21,chennai,30,40,35)</pre></div></details></article><article id="p18" class="program"><header><span class="number">18</span><div><span class="eyebrow pig">Pig</span><h2>Calculate Percentage</h2></div></header><p class="note">Average three subjects, each out of 100, to get the percentage.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
+percentage = FOREACH student GENERATE id, (m1 + m2 + m3) / 3.0;
+DUMP percentage;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(1,80.0)
+(2,35.0)
+(3,70.0)
+(4,80.0)</pre></div></details></article><article id="p19" class="program"><header><span class="number">19</span><div><span class="eyebrow pig">Pig</span><h2>Aggregation Functions</h2></div></header><p class="note">Demonstrate aggregation using employee salaries by department.</p><p class="note">Input: <a href="#shared-inputs"><code>data2.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">emp = LOAD &#x27;data2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, dept:chararray, city:chararray, salary:int, year:int, temp:int, quality:int);
+grouped = GROUP emp BY dept;
+summary = FOREACH grouped GENERATE group, MAX(emp.salary), MIN(emp.salary),
+    COUNT(emp), SUM(emp.salary), AVG(emp.salary);
+DUMP summary;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>department, max, min, count, sum, average</h3><pre class="output">(HR,52000,45000,2,97000,48500.0)
+(IT,75000,60000,2,135000,67500.0)</pre></div></details></article><article id="p20" class="program"><header><span class="number">20</span><div><span class="eyebrow hive">Hive</span><h2>Hive Arithmetic and Logic</h2></div></header><p class="note">Evaluate arithmetic, bitwise, comparison and logical expressions.</p><div class="code"><div class="codebar"><span class="lang hive">Hive</span><button class="copy" aria-label="Copy Hive code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="hive">Select 20+30;
 Select 20-30;
 Select 20*30;
 Select 20/30;
@@ -369,57 +197,47 @@ Select datediff(&#x27;2026-12-31&#x27;,&#x27;2026-10-01&#x27;);
 Select date_format(&#x27;2026-10-01&#x27;,&#x27;dd-MM-yyyy&#x27;);
 Select to_date(&#x27;2026-10-01 10:30:00&#x27;);
 Select add_months(&#x27;2026-10-01&#x27;,3);
-Select last_day(&#x27;2026-10-01&#x27;);</code></pre></div><p class="tip">CURRENT_DATE changes daily. The remaining queries use the fixed date from the record.</p><details><summary>Expected output</summary><div class="detailcontent"><div class="tablewrap"><table><thead><tr><th>Expression</th><th>Result</th></tr></thead><tbody><tr><td><code>select current_date;</code></td><td>Current server date</td></tr><tr><td><code>select year(&#x27;2026-10-01&#x27;);</code></td><td>2026</td></tr><tr><td><code>select month(&#x27;2026-10-01&#x27;);</code></td><td>10</td></tr><tr><td><code>select day(&#x27;2026-10-01&#x27;);</code></td><td>1</td></tr><tr><td><code>select date_add(&#x27;2026-10-01&#x27;,10);</code></td><td>2026-10-11</td></tr><tr><td><code>select date_sub(&#x27;2026-10-01&#x27;,10);</code></td><td>2026-09-21</td></tr><tr><td><code>select datediff(&#x27;2026-12-31&#x27;,&#x27;2026-10-01&#x27;);</code></td><td>91</td></tr><tr><td><code>select date_format(&#x27;2026-10-01&#x27;,&#x27;dd-MM-yyyy&#x27;);</code></td><td>01-10-2026</td></tr><tr><td><code>select to_date(&#x27;2026-10-01 10:30:00&#x27;);</code></td><td>2026-10-01</td></tr><tr><td><code>select add_months(&#x27;2026-10-01&#x27;,3);</code></td><td>2027-01-01</td></tr><tr><td><code>select last_day(&#x27;2026-10-01&#x27;);</code></td><td>2026-10-31</td></tr></tbody></table></div></div></details></article><article id="p24" class="program"><header><span class="number">24</span><div><span class="eyebrow pig">Pig</span><h2>Employee Data Analysis</h2></div></header><p class="note">Filter high salaries, summarize departments and find the top three.</p><details><summary>Input files <span>emp.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; emp.txt &lt;&lt;&#x27;EOF&#x27;
-1,Ravi,IT,60000
-2,Anita,HR,45000
-3,Karan,IT,75000
-4,Meena,Finance,52000
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">emp = LOAD &#x27;emp.txt&#x27; USING PigStorage(&#x27;,&#x27;) AS (id:int, name:chararray, dept:chararray, salary:int);
+Select last_day(&#x27;2026-10-01&#x27;);</code></pre></div><p class="tip">CURRENT_DATE changes daily. The remaining queries use the fixed date from the record.</p><details><summary>Expected output</summary><div class="detailcontent"><div class="tablewrap"><table><thead><tr><th>Expression</th><th>Result</th></tr></thead><tbody><tr><td><code>select current_date;</code></td><td>Current server date</td></tr><tr><td><code>select year(&#x27;2026-10-01&#x27;);</code></td><td>2026</td></tr><tr><td><code>select month(&#x27;2026-10-01&#x27;);</code></td><td>10</td></tr><tr><td><code>select day(&#x27;2026-10-01&#x27;);</code></td><td>1</td></tr><tr><td><code>select date_add(&#x27;2026-10-01&#x27;,10);</code></td><td>2026-10-11</td></tr><tr><td><code>select date_sub(&#x27;2026-10-01&#x27;,10);</code></td><td>2026-09-21</td></tr><tr><td><code>select datediff(&#x27;2026-12-31&#x27;,&#x27;2026-10-01&#x27;);</code></td><td>91</td></tr><tr><td><code>select date_format(&#x27;2026-10-01&#x27;,&#x27;dd-MM-yyyy&#x27;);</code></td><td>01-10-2026</td></tr><tr><td><code>select to_date(&#x27;2026-10-01 10:30:00&#x27;);</code></td><td>2026-10-01</td></tr><tr><td><code>select add_months(&#x27;2026-10-01&#x27;,3);</code></td><td>2027-01-01</td></tr><tr><td><code>select last_day(&#x27;2026-10-01&#x27;);</code></td><td>2026-10-31</td></tr></tbody></table></div></div></details></article><article id="p24" class="program"><header><span class="number">24</span><div><span class="eyebrow pig">Pig</span><h2>Employee Data Analysis</h2></div></header><p class="note">Filter high salaries, summarize departments and find the top three.</p><p class="note">Input: <a href="#shared-inputs"><code>data2.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">emp = LOAD &#x27;data2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, dept:chararray, city:chararray, salary:int, year:int, temp:int, quality:int);
 high_sal = FILTER emp BY salary &gt; 50000;
 DUMP high_sal;
 by_dept = GROUP emp BY dept;
-dept_stats = FOREACH by_dept GENERATE group AS dept, COUNT(emp) AS total_emp, AVG(emp.salary) AS avg_sal, MAX(emp.salary) AS max_sal;
+dept_stats = FOREACH by_dept GENERATE group, COUNT(emp), AVG(emp.salary), MAX(emp.salary);
 DUMP dept_stats;
 sorted = ORDER emp BY salary DESC;
 top3 = LIMIT sorted 3;
-DUMP top3;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>high_sal</h3><pre class="output">(1,Ravi,IT,60000)
-(3,Karan,IT,75000)
-(4,Meena,Finance,52000)</pre><h3>dept_stats</h3><pre class="output">(HR,1,45000.0,45000)
-(IT,2,67500.0,75000)
-(Finance,1,52000.0,52000)</pre><h3>top3</h3><pre class="output">(3,Karan,IT,75000)
-(1,Ravi,IT,60000)
-(4,Meena,Finance,52000)</pre></div></details></article><article id="p25" class="program"><header><span class="number">25</span><div><span class="eyebrow pig">Pig</span><h2>Student Marks Analysis</h2></div></header><p class="note">Calculate total, average, pass/fail, topper and pass/fail counts.</p><details><summary>Input files <span>stud.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; stud.txt &lt;&lt;&#x27;EOF&#x27;
-1,Amit,78,85,90
-2,Neha,35,40,30
-3,Rohan,60,55,70
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">stud = LOAD &#x27;stud.txt&#x27; USING PigStorage(&#x27;,&#x27;) AS (id:int, name:chararray, m1:int, m2:int, m3:int);
-result = FOREACH stud GENERATE id, name, (m1+m2+m3) AS total, (m1+m2+m3)/3.0 AS avg, (((m1+m2+m3)/3.0) &gt;= 40.0 ? &#x27;Pass&#x27; : &#x27;Fail&#x27;) AS status;
+DUMP top3;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>high_sal</h3><pre class="output">(1,ravi,IT,delhi,60000,2024,32,0)
+(3,karan,IT,delhi,75000,2025,34,0)
+(5,meena,HR,chennai,52000,2025,9999,0)</pre><h3>dept_stats</h3><pre class="output">(HR,2,48500.0,52000)
+(IT,2,67500.0,75000)</pre><h3>top3</h3><pre class="output">(3,karan,IT,delhi,75000,2025,34,0)
+(1,ravi,IT,delhi,60000,2024,32,0)
+(5,meena,HR,chennai,52000,2025,9999,0)</pre></div></details></article><article id="p25" class="program"><header><span class="number">25</span><div><span class="eyebrow pig">Pig</span><h2>Student Marks Analysis</h2></div></header><p class="note">Calculate total, average, pass/fail, topper and pass/fail counts.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
+result = FOREACH student GENERATE id, name, (m1 + m2 + m3) AS total,
+    (m1 + m2 + m3) / 3.0 AS average,
+    ((m1 + m2 + m3) / 3.0 &gt;= 40 ? &#x27;Pass&#x27; : &#x27;Fail&#x27;) AS status;
 DUMP result;
 ranked = ORDER result BY total DESC;
 topper = LIMIT ranked 1;
 DUMP topper;
-grp = GROUP result BY status;
-summary = FOREACH grp GENERATE group AS status, COUNT(result) AS students;
-DUMP summary;</code></pre></div><p class="tip">Pass/fail follows the record’s average &gt;= 40 rule, not a per-subject pass rule.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>result</h3><pre class="output">(1,Amit,253,84.33333333333333,Pass)
-(2,Neha,105,35.0,Fail)
-(3,Rohan,185,61.666666666666664,Pass)</pre><h3>topper</h3><pre class="output">(1,Amit,253,84.33333333333333,Pass)</pre><h3>summary</h3><pre class="output">(Fail,1)
-(Pass,2)</pre></div></details></article><article id="p26" class="program"><header><span class="number">+</span><div><span class="eyebrow pig">Pig</span><h2>Word Count</h2></div></header><p class="note">Extra program from the old cheatsheet and the record.</p><details><summary>Input files <span>words.txt</span></summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; words.txt &lt;&lt;&#x27;EOF&#x27;
-betty bought a butter but the butter was bitter so betty bought a better butter
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">lines = LOAD &#x27;words.txt&#x27; USING PigStorage(&#x27;\t&#x27;)
-    AS (line:chararray);
+grouped = GROUP result BY status;
+summary = FOREACH grouped GENERATE group, COUNT(result);
+DUMP summary;</code></pre></div><p class="tip">Pass/fail uses average &gt;= 40, as in the record.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>result</h3><pre class="output">(1,amit,240,80.0,Pass)
+(2,priya,105,35.0,Fail)
+(3,arun,210,70.0,Pass)
+(4,neha,240,80.0,Pass)</pre><h3>topper</h3><pre class="output">(1,amit,240,80.0,Pass)</pre><h3>summary</h3><pre class="output">(Fail,1)
+(Pass,3)</pre></div></details></article><article id="p26" class="program"><header><span class="number">+</span><div><span class="eyebrow pig">Pig</span><h2>Word Count</h2></div></header><p class="note">Tokenize names and cities, then count repeated words.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+    AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
+lines = FOREACH student GENERATE CONCAT(name, CONCAT(&#x27; &#x27;, city)) AS line;
 words = FOREACH lines GENERATE FLATTEN(TOKENIZE(line)) AS word;
 grouped = GROUP words BY word;
 counts = FOREACH grouped GENERATE group, COUNT(words);
-DUMP counts;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>DUMP counts</h3><pre class="output">(a,2)
-(better,1)
-(betty,2)
-(bitter,1)
-(bought,2)
-(but,1)
-(butter,3)
-(so,1)
-(the,1)
-(was,1)</pre></div></details></article><footer>Based on the BDA lab record. Pig 0.16 · Hive 1.2 reference.</footer></main><script>
+DUMP counts;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(amit,1)
+(arun,1)
+(chennai,2)
+(delhi,2)
+(neha,1)
+(priya,1)</pre></div></details></article><footer>Based on the BDA lab record. Pig 0.16 · Hive 1.2 reference.</footer></main><script>
 const $=s=>document.querySelector(s),all=s=>[...document.querySelectorAll(s)];
 const escapeHTML=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const keywords=new Set('LOAD USING AS DUMP STORE INTO GROUP BY FOREACH GENERATE FLATTEN JOIN LEFT RIGHT FULL OUTER UNION SPLIT IF FILTER ORDER ASC DESC LIMIT AND OR NOT MATCHES SELECT WHERE TRUE FALSE NULL CASE WHEN THEN ELSE END IS IN DISTINCT'.split(' '));

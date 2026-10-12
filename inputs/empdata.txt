@@ -1,9 +1,0 @@
-03 Amit Delhi India 12000
-04 Anil Delhi India 15000
-05 Deepak Delhi India 34000
-06 Fahed Agra India 45000
-07 Ravi Patna India 98777
-08 Avinash Punjab India 120000
-09 Saajan Punjab India 54000
-001 Harit Delhi India 20000
-002 Hardy Agra India 20000

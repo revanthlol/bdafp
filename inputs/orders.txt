@@ -1,5 +1,0 @@
-101,1,Laptop
-102,2,Mobile
-103,3,TV
-104,5,Watch
-105,7,Camera
