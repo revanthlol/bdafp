@@ -1,0 +1,6 @@
+1,Ramesh,32,Ahmedabad,2000.00
+2,Khilan,25,Delhi,1500.00
+3,Koushik,23,Kota,2000.00
+4,chaitali,25,mumbai,6500.00
+5,hardik,27,bhopal,8500.00
+6,komal,22,mp,4500.00

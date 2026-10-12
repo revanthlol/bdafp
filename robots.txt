@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://bdafp.vercel.app/sitemap.xml

@@ -1,0 +1,6 @@
+# BDA Final Practical
+
+Pig and Hive lab reference, based on the BDA final record.
+
+- [Programs](https://bdafp.vercel.app/): 25 indexed programs and extra Word Count.
+- Input datasets are in /inputs/.

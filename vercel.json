@@ -1,0 +1,1 @@
+{"buildCommand":null,"outputDirectory":".","ignoreCommand":"git diff --quiet HEAD^ HEAD -- index.html inputs favicon.svg share.svg robots.txt sitemap.xml llms.txt 404.html vercel.json","cleanUrls":true}
