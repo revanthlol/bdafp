@@ -515,6 +515,78 @@
           animation: none !important;
         }
       }
+      .setup-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 16px;
+        margin-top: 26px;
+      }
+      .setup-grid .setup {
+        margin-top: 0;
+        min-width: 0;
+      }
+      .setup-grid h2 {
+        font:
+          600 11px ui-monospace,
+          monospace;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 14px;
+        margin-bottom: 16px;
+      }
+      .steps {
+        list-style: none;
+        counter-reset: step;
+        margin: 0;
+        padding: 0;
+      }
+      .steps li {
+        counter-increment: step;
+        position: relative;
+        padding-left: 30px;
+        margin-bottom: 18px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+      .steps li::before {
+        content: counter(step);
+        position: absolute;
+        left: 0;
+        top: 2px;
+        border: 1px solid #37373f;
+        background: #242429;
+        border-radius: 3px;
+        min-width: 20px;
+        text-align: center;
+        color: var(--text);
+        font:
+          12px/20px ui-monospace,
+          monospace;
+      }
+      .steps strong {
+        color: var(--text);
+      }
+      .setup .schema {
+        font-size: 10px;
+        color: #90909c;
+        margin-top: 14px;
+        margin-bottom: 0;
+        overflow-wrap: anywhere;
+      }
+      .setup-grid .code pre {
+        font-size: 11px;
+        padding: 13px;
+      }
+      .setup-grid .codebar {
+        padding: 6px 9px;
+      }
+      @media (max-width: 1000px) {
+        .setup-grid {
+          grid-template-columns: 1fr;
+        }
+      }
     </style>
   </head>
   <body>
@@ -575,114 +647,105 @@
     <main id="top">
       <div class="intro">
         <span class="eyebrow">Big Data Analytics · Final practical</span>
-        <h1>Pig & Hive,<br />ready for the practical.</h1>
-        <p>
-          25 programs from the lab record, plus Word Count. Inputs, code and
-          output in one place.
-        </p>
-        <section class="setup">
-          <h2>Before you start</h2>
-          <p>
-            Create <code>data1.txt</code> and <code>data2.txt</code> once. Every
-            Pig program uses these same two files. Run Pig with
-            <code>pig -x local</code> and Hive with <code>hive</code>. Paste
-            each program into its matching shell.
-          </p>
-          <div class="code">
-            <div class="codebar">
-              <span class="lang terminal">Terminal</span
-              ><button class="copy" aria-label="Copy Terminal code">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  aria-hidden="true"
-                >
-                  <rect x="8" y="8" width="12" height="12" rx="2" />
-                  <path d="M16 8V4H4v12h4" /></svg
-                ><span>Copy</span>
-              </button>
-            </div>
-            <pre><code data-language="terminal">mkdir -p ~/bda-final
-cd ~/bda-final</code></pre>
-          </div>
-          <details id="shared-inputs">
-            <summary>Create the two input files</summary>
-            <div class="detailcontent">
-              <div class="code">
-                <div class="codebar">
-                  <span class="lang terminal">Terminal</span
-                  ><button class="copy" aria-label="Copy Terminal code">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.7"
-                      aria-hidden="true"
-                    >
-                      <rect x="8" y="8" width="12" height="12" rx="2" />
-                      <path d="M16 8V4H4v12h4" /></svg
-                    ><span>Copy</span>
-                  </button>
+
+        <section class="setup-grid" aria-label="Practical setup">
+          <div class="setup">
+            <h2>Execution steps</h2>
+            <ol class="steps">
+              <li>
+                <strong>Create datasets:</strong> Paste the data files script
+                into your Bash terminal once. It creates
+                <code>data1.txt</code> and <code>data2.txt</code> in the current
+                directory.
+              </li>
+              <li>
+                <strong>Launch the shell:</strong> Run
+                <code>pig -x local</code> for Pig programs or
+                <code>hive</code> for Hive programs.
+                <div class="code">
+                  <div class="codebar">
+                    <span class="lang terminal">Launch Pig</span
+                    ><button class="copy" aria-label="Copy Launch Pig">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        aria-hidden="true"
+                      >
+                        <rect x="8" y="8" width="12" height="12" rx="2" />
+                        <path d="M16 8V4H4v12h4" /></svg
+                      ><span>Copy</span>
+                    </button>
+                  </div>
+                  <pre><code data-language="terminal">pig -x local</code></pre>
                 </div>
-                <pre><code data-language="terminal">cat &gt; data1.txt &lt;&lt;&#x27;EOF&#x27;
+                <div class="code">
+                  <div class="codebar">
+                    <span class="lang terminal">Launch Hive</span
+                    ><button class="copy" aria-label="Copy Launch Hive">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        aria-hidden="true"
+                      >
+                        <rect x="8" y="8" width="12" height="12" rx="2" />
+                        <path d="M16 8V4H4v12h4" /></svg
+                      ><span>Copy</span>
+                    </button>
+                  </div>
+                  <pre><code data-language="terminal">hive</code></pre>
+                </div>
+              </li>
+              <li>
+                <strong>Execute code:</strong> Copy a program below, paste it at
+                the matching <code>grunt&gt;</code> or
+                <code>hive&gt;</code> prompt, and press Enter.
+              </li>
+            </ol>
+          </div>
+          <div class="setup" id="shared-inputs">
+            <h2>Data files script</h2>
+            <p>Paste into Bash once. All Pig programs reuse these two files.</p>
+            <div class="code">
+              <div class="codebar">
+                <span class="lang terminal">Data files script</span
+                ><button class="copy" aria-label="Copy Data files script">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    aria-hidden="true"
+                  >
+                    <rect x="8" y="8" width="12" height="12" rx="2" />
+                    <path d="M16 8V4H4v12h4" /></svg
+                  ><span>Copy</span>
+                </button>
+              </div>
+              <pre><code data-language="terminal">cat &gt; data1.txt &lt;&lt;&#x27;EOF&#x27;
 1,amit,20,delhi,80,70,90
 2,priya,21,chennai,30,40,35
 3,arun,20,delhi,60,70,80
 4,neha,22,chennai,90,80,70
 EOF
+
 cat &gt; data2.txt &lt;&lt;&#x27;EOF&#x27;
 1,ravi,IT,delhi,60000,2024,32,0
 2,anita,HR,chennai,45000,2024,36,1
 3,karan,IT,delhi,75000,2025,34,0
 5,meena,HR,chennai,52000,2025,9999,0
-EOF</code></pre>
-              </div>
+EOF
+</code></pre>
             </div>
-          </details>
-          <div class="code">
-            <div class="codebar">
-              <span class="lang terminal">Terminal</span
-              ><button class="copy" aria-label="Copy Terminal code">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  aria-hidden="true"
-                >
-                  <rect x="8" y="8" width="12" height="12" rx="2" />
-                  <path d="M16 8V4H4v12h4" /></svg
-                ><span>Copy</span>
-              </button>
-            </div>
-            <pre><code data-language="terminal">pig -x local</code></pre>
+            <p class="schema">
+              <code>data1.txt</code>: id, name, age, city, m1, m2, m3.<br /><code
+                >data2.txt</code
+              >: id, name, dept, city, salary, year, temp, quality.
+            </p>
           </div>
-          <div class="code">
-            <div class="codebar">
-              <span class="lang terminal">Terminal</span
-              ><button class="copy" aria-label="Copy Terminal code">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  aria-hidden="true"
-                >
-                  <rect x="8" y="8" width="12" height="12" rx="2" />
-                  <path d="M16 8V4H4v12h4" /></svg
-                ><span>Copy</span>
-              </button>
-            </div>
-            <pre><code data-language="terminal">hive</code></pre>
-          </div>
-          <p>
-            <code>data1.txt</code>: id, name, age, city, m1, m2, m3.<br /><code
-              >data2.txt</code
-            >: id, name, dept, city, salary, year, temp, quality.<br />Marks are
-            out of 100. Temperature 9999 is invalid. Output row order may vary.
-          </p>
         </section>
       </div>
       <p id="empty" role="status" hidden>No matching programs.</p>
