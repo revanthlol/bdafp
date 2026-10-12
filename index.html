@@ -1,7 +1,632 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0c0c0e"><title>BDA Final Practical | Pig & Hive</title><meta name="description" content="Big Data Analytics final practical reference: 25 record programs, Pig and Hive code, input files and expected output."><link rel="canonical" href="https://bdafp.vercel.app/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta property="og:title" content="BDA Final Practical"><meta property="og:description" content="Pig & Hive. The complete final practical reference."><meta property="og:type" content="website"><meta property="og:url" content="https://bdafp.vercel.app/"><meta property="og:image" content="https://bdafp.vercel.app/share.svg"><meta name="twitter:card" content="summary"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"BDA Final Practical","description":"Pig and Hive final practical reference","url":"https://bdafp.vercel.app/"}</script><style>
-:root{color-scheme:dark;--bg:#0c0c0e;--panel:#131316;--line:#2a2a31;--text:#eeeef2;--muted:#aaaab5;--pig:#efc38c;--hive:#94c9e5}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:30px}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input{font:inherit}button,a,input,summary{-webkit-tap-highlight-color:transparent}a{color:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--hive);outline-offset:4px}.sidebar{position:fixed;inset:0 auto 0 0;width:292px;padding:28px 18px;background:#101012;border-right:1px solid var(--line);overflow-y:auto}.brand{display:block;text-decoration:none;font-weight:750;font-size:20px;padding:0 12px}.brand small{display:block;color:var(--muted);font:11px/2 system-ui;letter-spacing:1.8px;text-transform:uppercase}.search{display:block;margin:24px 8px 20px}.search span{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}.search input{width:100%;background:#19191d;border:1px solid #37373f;border-radius:5px;padding:10px 12px;color:var(--text)}.navgroup{color:#858591;font-size:10px;letter-spacing:1.3px;text-transform:uppercase;padding:22px 12px 8px}nav a{display:flex;gap:12px;padding:8px 12px;text-decoration:none;color:#b5b5bf;font-size:12px;line-height:1.5;border-radius:4px}nav a span{font:11px/1.7 ui-monospace,monospace;color:#777784;min-width:19px}nav a:hover,nav a.active{background:#242429;color:#fff}main{margin-left:292px;max-width:1120px;padding:58px 60px 80px}.intro{padding-bottom:35px;border-bottom:1px solid var(--line);margin-bottom:32px}.eyebrow{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;font-weight:700}.intro .eyebrow{color:var(--muted)}h1{font-size:clamp(30px,4vw,46px);letter-spacing:-1.8px;line-height:1.15;margin:16px 0}h2{font-size:23px;letter-spacing:-.5px;margin:2px 0;line-height:1.3}h3{font-size:12px;color:var(--muted);font-weight:500;margin:20px 0 8px}.intro p{color:var(--muted);max-width:600px}.setup{border:1px solid var(--line);padding:20px;background:var(--panel);margin-top:26px;border-radius:6px}.setup h2{font-size:15px;letter-spacing:0;margin-bottom:8px}.setup p{font-size:13px;margin:0 0 14px}.program{border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:26px;margin-bottom:26px;scroll-margin-top:25px}.program header{display:flex;align-items:center;gap:17px}.number{font:20px ui-monospace,monospace;color:#72727f;border-right:1px solid #37373e;padding-right:17px}.pig{color:var(--pig)}.hive{color:var(--hive)}.terminal{color:#b9d6ac}.note{color:var(--muted);font-size:13px;margin:16px 0 20px}.code{background:#0b0b0d;border:1px solid #29292f;border-radius:5px;overflow:hidden;margin:12px 0}.codebar{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #24242b;padding:8px 13px}.lang{font:700 10px system-ui;letter-spacing:1px;text-transform:uppercase}.copy{display:flex;align-items:center;gap:7px;background:transparent;color:#aaaab5;border:1px solid transparent;padding:5px 8px;border-radius:4px;font-size:11px;transition:background .18s,color .18s,transform .18s}.copy svg{width:14px;height:14px;transition:transform .22s}.copy:hover{background:#292930;color:white}.copy:active{transform:scale(.95)}.copy.copied{color:#b9d6ac;background:#1b291f}.copy.copied svg{transform:scale(1.12)}pre{margin:0;padding:19px;overflow-x:auto;tab-size:4;font:12px/1.8 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;color:#dcdce3}code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.token-keyword{color:#f0af87}.token-function{color:#9ed1e5}.token-string{color:#afd1a0}.token-number{color:#e4c68a}.token-comment{color:#878795;font-style:italic}.token-type{color:#d9b5d3}.token-operator{color:#a9b7ce}details{margin:14px 0 0;border-top:1px solid #2a2a31}summary{cursor:pointer;list-style:none;font-size:12px;font-weight:600;padding:14px 0;display:flex;gap:10px;align-items:center}summary::-webkit-details-marker{display:none}summary:before{content:'›';font-size:20px;line-height:1;color:#a1a1ad;transition:transform .22s}details[open]>summary:before{transform:rotate(90deg)}summary span{font:10px ui-monospace,monospace;color:#888895;margin-left:auto;text-align:right}.detailcontent{padding-bottom:8px}.output{background:#0e0e10;border:1px solid var(--line);border-radius:4px;color:#bcbcc7}.tip{font-size:12px;color:#aaaab5;margin:15px 0 0;padding-left:12px;border-left:2px solid #51515e}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:12px}th,td{text-align:left;border-bottom:1px solid var(--line);padding:12px 10px;vertical-align:top}th{color:#9696a2;font-weight:500}td code{font-size:11px;color:#c9c9d1}.mobilebar{display:none}.close{display:none}#empty{color:var(--muted);padding:50px 0}[hidden]{display:none!important}footer{color:#777783;font-size:11px;padding-top:12px}@media(max-width:1100px){main{padding:45px 32px}.sidebar{width:264px}main{margin-left:264px}}@media(max-width:760px){.mobilebar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--line);background:#101012}.mobilebar button,.close{background:#25252b;color:white;border:1px solid #3a3a43;border-radius:4px;padding:8px 12px;font-size:12px}.sidebar{display:none;width:min(320px,88vw);z-index:2}.sidebar.open{display:block}.close{display:block;margin:0 12px 20px auto}main{margin-left:0;padding:32px 18px 50px}.program{padding:20px 16px}.setup{padding:16px}.number{font-size:17px;padding-right:12px}.program header{gap:12px}h2{font-size:20px}summary span{max-width:55%;overflow-wrap:anywhere}pre{padding:15px;font-size:11px}.backdrop.open{position:fixed;inset:0;background:#0009;z-index:1}body.menuopen{overflow:hidden}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before{transition:none!important;animation:none!important}}
-</style></head><body><div class="mobilebar"><strong>BDA / Final practical</strong><button id="menu" aria-expanded="false" aria-controls="sidebar">Programs</button></div><div class="backdrop" id="backdrop"></div><aside class="sidebar" id="sidebar"><button class="close" id="close">Close menu</button><a class="brand" href="#top">BDA<span style="color:#777783"> / </span>Final<small>Practical reference</small></a><label class="search"><span>Find a program</span><input id="search" type="search" placeholder="Search title, code or number…" autocomplete="off"></label><nav aria-label="Programs"><div class="navgroup">Pig operators & functions</div><a href="#p1"><span>01</span>LOAD and STORE</a><a href="#p2"><span>02</span>GROUP Data</a><a href="#p3"><span>03</span>GROUP Multiple Columns</a><a href="#p4"><span>04</span>JOIN</a><a href="#p5"><span>05</span>UNION</a><a href="#p6"><span>06</span>SPLIT</a><a href="#p7"><span>07</span>FILTER</a><a href="#p8"><span>08</span>ORDER BY</a><a href="#p9"><span>09</span>LIMIT</a><a href="#p10"><span>10</span>String Functions</a><a href="#p11"><span>11</span>Numeric Functions</a><a href="#p12"><span>12</span>Even or Odd</a><a href="#p13"><span>13</span>Vowel or Not</a><a href="#p14"><span>14</span>Add, Subtract and Multiply</a><a href="#p15"><span>15</span>Maximum Temperature</a><a href="#p16"><span>16</span>Maximum Salary by City</a><a href="#p17"><span>17</span>Regular Expression Filter</a><a href="#p18"><span>18</span>Calculate Percentage</a><a href="#p19"><span>19</span>Aggregation Functions</a><div class="navgroup">Hive operations</div><a href="#p20"><span>20</span>Hive Arithmetic and Logic</a><a href="#p21"><span>21</span>Hive Mathematical Operations</a><a href="#p22"><span>22</span>Hive String Operations</a><a href="#p23"><span>23</span>Hive Data Operations</a><div class="navgroup">Analysis</div><a href="#p24"><span>24</span>Employee Data Analysis</a><a href="#p25"><span>25</span>Student Marks Analysis</a><div class="navgroup">Extra</div><a href="#p26"><span>+</span>Word Count</a></nav></aside><main id="top"><div class="intro"><span class="eyebrow">Big Data Analytics · Final practical</span><h1>Pig & Hive,<br>ready for the practical.</h1><p>25 programs from the lab record, plus Word Count. Inputs, code and output in one place.</p><section class="setup"><h2>Before you start</h2><p>Create <code>data1.txt</code> and <code>data2.txt</code> once. Every Pig program uses these same two files. Run Pig with <code>pig -x local</code> and Hive with <code>hive</code>. Paste each program into its matching shell.</p><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">mkdir -p ~/bda-final
-cd ~/bda-final</code></pre></div><details id="shared-inputs"><summary>Create the two input files</summary><div class="detailcontent"><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">cat &gt; data1.txt &lt;&lt;&#x27;EOF&#x27;
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#0c0c0e" />
+    <title>BDA Final Practical | Pig & Hive</title>
+    <meta
+      name="description"
+      content="Big Data Analytics final practical reference: 25 record programs, Pig and Hive code, input files and expected output."
+    />
+    <link rel="canonical" href="https://bdafp.vercel.app/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:title" content="BDA Final Practical" />
+    <meta
+      property="og:description"
+      content="Pig & Hive. The complete final practical reference."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bdafp.vercel.app/" />
+    <meta property="og:image" content="https://bdafp.vercel.app/share.svg" />
+    <meta name="twitter:card" content="summary" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "BDA Final Practical",
+        "description": "Pig and Hive final practical reference",
+        "url": "https://bdafp.vercel.app/"
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0c0c0e;
+        --panel: #131316;
+        --line: #2a2a31;
+        --text: #eeeef2;
+        --muted: #aaaab5;
+        --pig: #efc38c;
+        --hive: #94c9e5;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 30px;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          15px/1.6 system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+      button,
+      input {
+        font: inherit;
+      }
+      button,
+      a,
+      input,
+      summary {
+        -webkit-tap-highlight-color: transparent;
+      }
+      a {
+        color: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      button:focus-visible,
+      a:focus-visible,
+      input:focus-visible,
+      summary:focus-visible {
+        outline: 2px solid var(--hive);
+        outline-offset: 4px;
+      }
+      .sidebar {
+        position: fixed;
+        inset: 0 auto 0 0;
+        width: 292px;
+        padding: 28px 18px;
+        background: #101012;
+        border-right: 1px solid var(--line);
+        overflow-y: auto;
+      }
+      .brand {
+        display: block;
+        text-decoration: none;
+        font-weight: 750;
+        font-size: 20px;
+        padding: 0 12px;
+      }
+      .brand small {
+        display: block;
+        color: var(--muted);
+        font: 11px/2 system-ui;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+      }
+      .search {
+        display: block;
+        margin: 24px 8px 20px;
+      }
+      .search span {
+        display: block;
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+      .search input {
+        width: 100%;
+        background: #19191d;
+        border: 1px solid #37373f;
+        border-radius: 5px;
+        padding: 10px 12px;
+        color: var(--text);
+      }
+      .navgroup {
+        color: #858591;
+        font-size: 10px;
+        letter-spacing: 1.3px;
+        text-transform: uppercase;
+        padding: 22px 12px 8px;
+      }
+      nav a {
+        display: flex;
+        gap: 12px;
+        padding: 8px 12px;
+        text-decoration: none;
+        color: #b5b5bf;
+        font-size: 12px;
+        line-height: 1.5;
+        border-radius: 4px;
+      }
+      nav a span {
+        font:
+          11px/1.7 ui-monospace,
+          monospace;
+        color: #777784;
+        min-width: 19px;
+      }
+      nav a:hover,
+      nav a.active {
+        background: #242429;
+        color: #fff;
+      }
+      main {
+        margin-left: 292px;
+        max-width: 1120px;
+        padding: 58px 60px 80px;
+      }
+      .intro {
+        padding-bottom: 35px;
+        border-bottom: 1px solid var(--line);
+        margin-bottom: 32px;
+      }
+      .eyebrow {
+        font-size: 10px;
+        letter-spacing: 1.6px;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+      .intro .eyebrow {
+        color: var(--muted);
+      }
+      h1 {
+        font-size: clamp(30px, 4vw, 46px);
+        letter-spacing: -1.8px;
+        line-height: 1.15;
+        margin: 16px 0;
+      }
+      h2 {
+        font-size: 23px;
+        letter-spacing: -0.5px;
+        margin: 2px 0;
+        line-height: 1.3;
+      }
+      h3 {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 500;
+        margin: 20px 0 8px;
+      }
+      .intro p {
+        color: var(--muted);
+        max-width: 600px;
+      }
+      .setup {
+        border: 1px solid var(--line);
+        padding: 20px;
+        background: var(--panel);
+        margin-top: 26px;
+        border-radius: 6px;
+      }
+      .setup h2 {
+        font-size: 15px;
+        letter-spacing: 0;
+        margin-bottom: 8px;
+      }
+      .setup p {
+        font-size: 13px;
+        margin: 0 0 14px;
+      }
+      .program {
+        border: 1px solid var(--line);
+        background: var(--panel);
+        border-radius: 7px;
+        padding: 26px;
+        margin-bottom: 26px;
+        scroll-margin-top: 25px;
+      }
+      .program header {
+        display: flex;
+        align-items: center;
+        gap: 17px;
+      }
+      .number {
+        font:
+          20px ui-monospace,
+          monospace;
+        color: #72727f;
+        border-right: 1px solid #37373e;
+        padding-right: 17px;
+      }
+      .pig {
+        color: var(--pig);
+      }
+      .hive {
+        color: var(--hive);
+      }
+      .terminal {
+        color: #b9d6ac;
+      }
+      .note {
+        color: var(--muted);
+        font-size: 13px;
+        margin: 16px 0 20px;
+      }
+      .code {
+        background: #0b0b0d;
+        border: 1px solid #29292f;
+        border-radius: 5px;
+        overflow: hidden;
+        margin: 12px 0;
+      }
+      .codebar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #24242b;
+        padding: 8px 13px;
+      }
+      .lang {
+        font: 700 10px system-ui;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      .copy {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        background: transparent;
+        color: #aaaab5;
+        border: 1px solid transparent;
+        padding: 5px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        transition:
+          background 0.18s,
+          color 0.18s,
+          transform 0.18s;
+      }
+      .copy svg {
+        width: 14px;
+        height: 14px;
+        transition: transform 0.22s;
+      }
+      .copy:hover {
+        background: #292930;
+        color: white;
+      }
+      .copy:active {
+        transform: scale(0.95);
+      }
+      .copy.copied {
+        color: #b9d6ac;
+        background: #1b291f;
+      }
+      .copy.copied svg {
+        transform: scale(1.12);
+      }
+      pre {
+        margin: 0;
+        padding: 19px;
+        overflow-x: auto;
+        tab-size: 4;
+        font:
+          12px/1.8 ui-monospace,
+          SFMono-Regular,
+          Consolas,
+          "Liberation Mono",
+          monospace;
+        color: #dcdce3;
+      }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      }
+      .token-keyword {
+        color: #f0af87;
+      }
+      .token-function {
+        color: #9ed1e5;
+      }
+      .token-string {
+        color: #afd1a0;
+      }
+      .token-number {
+        color: #e4c68a;
+      }
+      .token-comment {
+        color: #878795;
+        font-style: italic;
+      }
+      .token-type {
+        color: #d9b5d3;
+      }
+      .token-operator {
+        color: #a9b7ce;
+      }
+      details {
+        margin: 14px 0 0;
+        border-top: 1px solid #2a2a31;
+      }
+      summary {
+        cursor: pointer;
+        list-style: none;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 14px 0;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      summary::-webkit-details-marker {
+        display: none;
+      }
+      summary:before {
+        content: "›";
+        font-size: 20px;
+        line-height: 1;
+        color: #a1a1ad;
+        transition: transform 0.22s;
+      }
+      details[open] > summary:before {
+        transform: rotate(90deg);
+      }
+      summary span {
+        font:
+          10px ui-monospace,
+          monospace;
+        color: #888895;
+        margin-left: auto;
+        text-align: right;
+      }
+      .detailcontent {
+        padding-bottom: 8px;
+      }
+      .output {
+        background: #0e0e10;
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        color: #bcbcc7;
+      }
+      .tip {
+        font-size: 12px;
+        color: #aaaab5;
+        margin: 15px 0 0;
+        padding-left: 12px;
+        border-left: 2px solid #51515e;
+      }
+      .tablewrap {
+        overflow: auto;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 12px;
+      }
+      th,
+      td {
+        text-align: left;
+        border-bottom: 1px solid var(--line);
+        padding: 12px 10px;
+        vertical-align: top;
+      }
+      th {
+        color: #9696a2;
+        font-weight: 500;
+      }
+      td code {
+        font-size: 11px;
+        color: #c9c9d1;
+      }
+      .mobilebar {
+        display: none;
+      }
+      .close {
+        display: none;
+      }
+      #empty {
+        color: var(--muted);
+        padding: 50px 0;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      footer {
+        color: #777783;
+        font-size: 11px;
+        padding-top: 12px;
+      }
+      @media (max-width: 1100px) {
+        main {
+          padding: 45px 32px;
+        }
+        .sidebar {
+          width: 264px;
+        }
+        main {
+          margin-left: 264px;
+        }
+      }
+      @media (max-width: 760px) {
+        .mobilebar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 14px 20px;
+          border-bottom: 1px solid var(--line);
+          background: #101012;
+        }
+        .mobilebar button,
+        .close {
+          background: #25252b;
+          color: white;
+          border: 1px solid #3a3a43;
+          border-radius: 4px;
+          padding: 8px 12px;
+          font-size: 12px;
+        }
+        .sidebar {
+          display: none;
+          width: min(320px, 88vw);
+          z-index: 2;
+        }
+        .sidebar.open {
+          display: block;
+        }
+        .close {
+          display: block;
+          margin: 0 12px 20px auto;
+        }
+        main {
+          margin-left: 0;
+          padding: 32px 18px 50px;
+        }
+        .program {
+          padding: 20px 16px;
+        }
+        .setup {
+          padding: 16px;
+        }
+        .number {
+          font-size: 17px;
+          padding-right: 12px;
+        }
+        .program header {
+          gap: 12px;
+        }
+        h2 {
+          font-size: 20px;
+        }
+        summary span {
+          max-width: 55%;
+          overflow-wrap: anywhere;
+        }
+        pre {
+          padding: 15px;
+          font-size: 11px;
+        }
+        .backdrop.open {
+          position: fixed;
+          inset: 0;
+          background: #0009;
+          z-index: 1;
+        }
+        body.menuopen {
+          overflow: hidden;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *,
+        *:before {
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mobilebar">
+      <strong>BDA / Final practical</strong
+      ><button id="menu" aria-expanded="false" aria-controls="sidebar">
+        Programs
+      </button>
+    </div>
+    <div class="backdrop" id="backdrop"></div>
+    <aside class="sidebar" id="sidebar">
+      <button class="close" id="close">Close menu</button
+      ><a class="brand" href="#top"
+        >BDA<span style="color: #777783"> / </span>Final<small
+          >Practical reference</small
+        ></a
+      ><label class="search"
+        ><span>Find a program</span
+        ><input
+          id="search"
+          type="search"
+          placeholder="Search title, code or number…"
+          autocomplete="off"
+      /></label>
+      <nav aria-label="Programs">
+        <div class="navgroup">Pig operators & functions</div>
+        <a href="#p1"><span>01</span>LOAD and STORE</a
+        ><a href="#p2"><span>02</span>GROUP Data</a
+        ><a href="#p3"><span>03</span>GROUP Multiple Columns</a
+        ><a href="#p4"><span>04</span>JOIN</a
+        ><a href="#p5"><span>05</span>UNION</a
+        ><a href="#p6"><span>06</span>SPLIT</a
+        ><a href="#p7"><span>07</span>FILTER</a
+        ><a href="#p8"><span>08</span>ORDER BY</a
+        ><a href="#p9"><span>09</span>LIMIT</a
+        ><a href="#p10"><span>10</span>String Functions</a
+        ><a href="#p11"><span>11</span>Numeric Functions</a
+        ><a href="#p12"><span>12</span>Even or Odd</a
+        ><a href="#p13"><span>13</span>Vowel or Not</a
+        ><a href="#p14"><span>14</span>Add, Subtract and Multiply</a
+        ><a href="#p15"><span>15</span>Maximum Temperature</a
+        ><a href="#p16"><span>16</span>Maximum Salary by City</a
+        ><a href="#p17"><span>17</span>Regular Expression Filter</a
+        ><a href="#p18"><span>18</span>Calculate Percentage</a
+        ><a href="#p19"><span>19</span>Aggregation Functions</a>
+        <div class="navgroup">Hive operations</div>
+        <a href="#p20"><span>20</span>Hive Arithmetic and Logic</a
+        ><a href="#p21"><span>21</span>Hive Mathematical Operations</a
+        ><a href="#p22"><span>22</span>Hive String Operations</a
+        ><a href="#p23"><span>23</span>Hive Data Operations</a>
+        <div class="navgroup">Analysis</div>
+        <a href="#p24"><span>24</span>Employee Data Analysis</a
+        ><a href="#p25"><span>25</span>Student Marks Analysis</a>
+        <div class="navgroup">Extra</div>
+        <a href="#p26"><span>+</span>Word Count</a>
+      </nav>
+    </aside>
+    <main id="top">
+      <div class="intro">
+        <span class="eyebrow">Big Data Analytics · Final practical</span>
+        <h1>Pig & Hive,<br />ready for the practical.</h1>
+        <p>
+          25 programs from the lab record, plus Word Count. Inputs, code and
+          output in one place.
+        </p>
+        <section class="setup">
+          <h2>Before you start</h2>
+          <p>
+            Create <code>data1.txt</code> and <code>data2.txt</code> once. Every
+            Pig program uses these same two files. Run Pig with
+            <code>pig -x local</code> and Hive with <code>hive</code>. Paste
+            each program into its matching shell.
+          </p>
+          <div class="code">
+            <div class="codebar">
+              <span class="lang terminal">Terminal</span
+              ><button class="copy" aria-label="Copy Terminal code">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  aria-hidden="true"
+                >
+                  <rect x="8" y="8" width="12" height="12" rx="2" />
+                  <path d="M16 8V4H4v12h4" /></svg
+                ><span>Copy</span>
+              </button>
+            </div>
+            <pre><code data-language="terminal">mkdir -p ~/bda-final
+cd ~/bda-final</code></pre>
+          </div>
+          <details id="shared-inputs">
+            <summary>Create the two input files</summary>
+            <div class="detailcontent">
+              <div class="code">
+                <div class="codebar">
+                  <span class="lang terminal">Terminal</span
+                  ><button class="copy" aria-label="Copy Terminal code">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      aria-hidden="true"
+                    >
+                      <rect x="8" y="8" width="12" height="12" rx="2" />
+                      <path d="M16 8V4H4v12h4" /></svg
+                    ><span>Copy</span>
+                  </button>
+                </div>
+                <pre><code data-language="terminal">cat &gt; data1.txt &lt;&lt;&#x27;EOF&#x27;
 1,amit,20,delhi,80,70,90
 2,priya,21,chennai,30,40,35
 3,arun,20,delhi,60,70,80
@@ -12,23 +637,224 @@ cat &gt; data2.txt &lt;&lt;&#x27;EOF&#x27;
 2,anita,HR,chennai,45000,2024,36,1
 3,karan,IT,delhi,75000,2025,34,0
 5,meena,HR,chennai,52000,2025,9999,0
-EOF</code></pre></div></div></details><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">pig -x local</code></pre></div><div class="code"><div class="codebar"><span class="lang terminal">Terminal</span><button class="copy" aria-label="Copy Terminal code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="terminal">hive</code></pre></div><p><code>data1.txt</code>: id, name, age, city, m1, m2, m3.<br><code>data2.txt</code>: id, name, dept, city, salary, year, temp, quality.<br>Marks are out of 100. Temperature 9999 is invalid. Output row order may vary.</p></section></div><p id="empty" role="status" hidden>No matching programs.</p><article id="p1" class="program"><header><span class="number">01</span><div><span class="eyebrow pig">Pig</span><h2>LOAD and STORE</h2></div></header><p class="note">Load and print the data, then save it to a new output directory.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+EOF</code></pre>
+              </div>
+            </div>
+          </details>
+          <div class="code">
+            <div class="codebar">
+              <span class="lang terminal">Terminal</span
+              ><button class="copy" aria-label="Copy Terminal code">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  aria-hidden="true"
+                >
+                  <rect x="8" y="8" width="12" height="12" rx="2" />
+                  <path d="M16 8V4H4v12h4" /></svg
+                ><span>Copy</span>
+              </button>
+            </div>
+            <pre><code data-language="terminal">pig -x local</code></pre>
+          </div>
+          <div class="code">
+            <div class="codebar">
+              <span class="lang terminal">Terminal</span
+              ><button class="copy" aria-label="Copy Terminal code">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  aria-hidden="true"
+                >
+                  <rect x="8" y="8" width="12" height="12" rx="2" />
+                  <path d="M16 8V4H4v12h4" /></svg
+                ><span>Copy</span>
+              </button>
+            </div>
+            <pre><code data-language="terminal">hive</code></pre>
+          </div>
+          <p>
+            <code>data1.txt</code>: id, name, age, city, m1, m2, m3.<br /><code
+              >data2.txt</code
+            >: id, name, dept, city, salary, year, temp, quality.<br />Marks are
+            out of 100. Temperature 9999 is invalid. Output row order may vary.
+          </p>
+        </section>
+      </div>
+      <p id="empty" role="status" hidden>No matching programs.</p>
+      <article id="p1" class="program">
+        <header>
+          <span class="number">01</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>LOAD and STORE</h2>
+          </div>
+        </header>
+        <p class="note">
+          Load and print the data, then save it to a new output directory.
+        </p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 DUMP student;
-STORE student INTO &#x27;output_p01&#x27; USING PigStorage(&#x27;,&#x27;);</code></pre></div><p class="tip">Use a new STORE output directory each time.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(1,amit,20,delhi,80,70,90)
+STORE student INTO &#x27;output_p01&#x27; USING PigStorage(&#x27;,&#x27;);</code></pre>
+        </div>
+        <p class="tip">Use a new STORE output directory each time.</p>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Expected output</h3>
+            <pre class="output">
+(1,amit,20,delhi,80,70,90)
 (2,priya,21,chennai,30,40,35)
 (3,arun,20,delhi,60,70,80)
-(4,neha,22,chennai,90,80,70)</pre></div></details></article><article id="p2" class="program"><header><span class="number">02</span><div><span class="eyebrow pig">Pig</span><h2>GROUP Data</h2></div></header><p class="note">Group students by age.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+(4,neha,22,chennai,90,80,70)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p2" class="program">
+        <header>
+          <span class="number">02</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>GROUP Data</h2>
+          </div>
+        </header>
+        <p class="note">Group students by age.</p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 grouped = GROUP student BY age;
-DUMP grouped;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(20,{(1,amit,20,delhi,80,70,90),(3,arun,20,delhi,60,70,80)})
+DUMP grouped;</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Expected output</h3>
+            <pre class="output">
+(20,{(1,amit,20,delhi,80,70,90),(3,arun,20,delhi,60,70,80)})
 (21,{(2,priya,21,chennai,30,40,35)})
-(22,{(4,neha,22,chennai,90,80,70)})</pre></div></details></article><article id="p3" class="program"><header><span class="number">03</span><div><span class="eyebrow pig">Pig</span><h2>GROUP Multiple Columns</h2></div></header><p class="note">Group students by age and city.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+(22,{(4,neha,22,chennai,90,80,70)})</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p3" class="program">
+        <header>
+          <span class="number">03</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>GROUP Multiple Columns</h2>
+          </div>
+        </header>
+        <p class="note">Group students by age and city.</p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 grouped = GROUP student BY (age, city);
-DUMP grouped;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">((20,delhi),{(1,amit,20,delhi,80,70,90),(3,arun,20,delhi,60,70,80)})
+DUMP grouped;</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Expected output</h3>
+            <pre class="output">
+((20,delhi),{(1,amit,20,delhi,80,70,90),(3,arun,20,delhi,60,70,80)})
 ((21,chennai),{(2,priya,21,chennai,30,40,35)})
-((22,chennai),{(4,neha,22,chennai,90,80,70)})</pre></div></details></article><article id="p4" class="program"><header><span class="number">04</span><div><span class="eyebrow pig">Pig</span><h2>JOIN</h2></div></header><p class="note">Join the two files on id.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a>, <a href="#shared-inputs"><code>data2.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+((22,chennai),{(4,neha,22,chennai,90,80,70)})</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p4" class="program">
+        <header>
+          <span class="number">04</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>JOIN</h2>
+          </div>
+        </header>
+        <p class="note">Join the two files on id.</p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a
+          >, <a href="#shared-inputs"><code>data2.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 emp = LOAD &#x27;data2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, dept:chararray, city:chararray, salary:int, year:int, temp:int, quality:int);
@@ -42,109 +868,771 @@ full_join = JOIN student BY id FULL OUTER, emp BY id;
 DUMP full_join;
 student_copy = FOREACH student GENERATE *;
 self_join = JOIN student BY id, student_copy BY id;
-DUMP self_join;</code></pre></div><p class="tip">Shown: inner join. Student 4 and employee 5 demonstrate unmatched outer-join records.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(1,amit,20,delhi,80,70,90,1,ravi,IT,delhi,60000,2024,32,0)
+DUMP self_join;</code></pre>
+        </div>
+        <p class="tip">
+          Shown: inner join. Student 4 and employee 5 demonstrate unmatched
+          outer-join records.
+        </p>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Expected output</h3>
+            <pre class="output">
+(1,amit,20,delhi,80,70,90,1,ravi,IT,delhi,60000,2024,32,0)
 (2,priya,21,chennai,30,40,35,2,anita,HR,chennai,45000,2024,36,1)
-(3,arun,20,delhi,60,70,80,3,karan,IT,delhi,75000,2025,34,0)</pre></div></details></article><article id="p5" class="program"><header><span class="number">05</span><div><span class="eyebrow pig">Pig</span><h2>UNION</h2></div></header><p class="note">Project matching columns from both files, then combine them.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a>, <a href="#shared-inputs"><code>data2.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+(3,arun,20,delhi,60,70,80,3,karan,IT,delhi,75000,2025,34,0)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p5" class="program">
+        <header>
+          <span class="number">05</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>UNION</h2>
+          </div>
+        </header>
+        <p class="note">
+          Project matching columns from both files, then combine them.
+        </p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a
+          >, <a href="#shared-inputs"><code>data2.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 emp = LOAD &#x27;data2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, dept:chararray, city:chararray, salary:int, year:int, temp:int, quality:int);
 students = FOREACH student GENERATE id, name, city;
 employees = FOREACH emp GENERATE id, name, city;
 combined = UNION students, employees;
-DUMP combined;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(1,amit,delhi)
+DUMP combined;</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Expected output</h3>
+            <pre class="output">
+(1,amit,delhi)
 (2,priya,chennai)
 (3,arun,delhi)
 (4,neha,chennai)
 (1,ravi,delhi)
 (2,anita,chennai)
 (3,karan,delhi)
-(5,meena,chennai)</pre></div></details></article><article id="p6" class="program"><header><span class="number">06</span><div><span class="eyebrow pig">Pig</span><h2>SPLIT</h2></div></header><p class="note">Split students into Chennai and other cities.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+(5,meena,chennai)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p6" class="program">
+        <header>
+          <span class="number">06</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>SPLIT</h2>
+          </div>
+        </header>
+        <p class="note">Split students into Chennai and other cities.</p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 SPLIT student INTO chennai IF city == &#x27;chennai&#x27;,
     others IF city != &#x27;chennai&#x27;;
 DUMP chennai;
-DUMP others;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>chennai</h3><pre class="output">(2,priya,21,chennai,30,40,35)
-(4,neha,22,chennai,90,80,70)</pre><h3>others</h3><pre class="output">(1,amit,20,delhi,80,70,90)
-(3,arun,20,delhi,60,70,80)</pre></div></details></article><article id="p7" class="program"><header><span class="number">07</span><div><span class="eyebrow pig">Pig</span><h2>FILTER</h2></div></header><p class="note">Keep records whose city is Chennai.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+DUMP others;</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>chennai</h3>
+            <pre class="output">
+(2,priya,21,chennai,30,40,35)
+(4,neha,22,chennai,90,80,70)</pre
+            >
+            <h3>others</h3>
+            <pre class="output">
+(1,amit,20,delhi,80,70,90)
+(3,arun,20,delhi,60,70,80)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p7" class="program">
+        <header>
+          <span class="number">07</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>FILTER</h2>
+          </div>
+        </header>
+        <p class="note">Keep records whose city is Chennai.</p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 filtered = FILTER student BY city == &#x27;chennai&#x27;;
-DUMP filtered;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(2,priya,21,chennai,30,40,35)
-(4,neha,22,chennai,90,80,70)</pre></div></details></article><article id="p8" class="program"><header><span class="number">08</span><div><span class="eyebrow pig">Pig</span><h2>ORDER BY</h2></div></header><p class="note">Sort by age descending, then id for ties.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+DUMP filtered;</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Expected output</h3>
+            <pre class="output">
+(2,priya,21,chennai,30,40,35)
+(4,neha,22,chennai,90,80,70)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p8" class="program">
+        <header>
+          <span class="number">08</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>ORDER BY</h2>
+          </div>
+        </header>
+        <p class="note">Sort by age descending, then id for ties.</p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 ordered = ORDER student BY age DESC, id ASC;
-DUMP ordered;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(4,neha,22,chennai,90,80,70)
+DUMP ordered;</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Expected output</h3>
+            <pre class="output">
+(4,neha,22,chennai,90,80,70)
 (2,priya,21,chennai,30,40,35)
 (1,amit,20,delhi,80,70,90)
-(3,arun,20,delhi,60,70,80)</pre></div></details></article><article id="p9" class="program"><header><span class="number">09</span><div><span class="eyebrow pig">Pig</span><h2>LIMIT</h2></div></header><p class="note">Return the first two students by id.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+(3,arun,20,delhi,60,70,80)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p9" class="program">
+        <header>
+          <span class="number">09</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>LIMIT</h2>
+          </div>
+        </header>
+        <p class="note">Return the first two students by id.</p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 ordered = ORDER student BY id ASC;
 limited = LIMIT ordered 2;
-DUMP limited;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(1,amit,20,delhi,80,70,90)
-(2,priya,21,chennai,30,40,35)</pre></div></details></article><article id="p10" class="program"><header><span class="number">10</span><div><span class="eyebrow pig">Pig</span><h2>String Functions</h2></div></header><p class="note">Demonstrate concatenation, case conversion and string length.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+DUMP limited;</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Expected output</h3>
+            <pre class="output">
+(1,amit,20,delhi,80,70,90)
+(2,priya,21,chennai,30,40,35)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p10" class="program">
+        <header>
+          <span class="number">10</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>String Functions</h2>
+          </div>
+        </header>
+        <p class="note">
+          Demonstrate concatenation, case conversion and string length.
+        </p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 strings = FOREACH student GENERATE CONCAT(name, city),
     UCFIRST(name), UPPER(name), LOWER(city), LCFIRST(UCFIRST(name)), SIZE(name);
-DUMP strings;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(amitdelhi,Amit,AMIT,delhi,amit,4)
+DUMP strings;</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Expected output</h3>
+            <pre class="output">
+(amitdelhi,Amit,AMIT,delhi,amit,4)
 (priyachennai,Priya,PRIYA,chennai,priya,5)
 (arundelhi,Arun,ARUN,delhi,arun,4)
-(nehachennai,Neha,NEHA,chennai,neha,4)</pre></div></details></article><article id="p11" class="program"><header><span class="number">11</span><div><span class="eyebrow pig">Pig</span><h2>Numeric Functions</h2></div></header><p class="note">Use age as the number; age / 3.0 demonstrates ceiling and floor.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+(nehachennai,Neha,NEHA,chennai,neha,4)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p11" class="program">
+        <header>
+          <span class="number">11</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>Numeric Functions</h2>
+          </div>
+        </header>
+        <p class="note">
+          Use age as the number; age / 3.0 demonstrates ceiling and floor.
+        </p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 result = FOREACH student GENERATE age, SQRT(age), CBRT(age),
     CEIL(age / 3.0), FLOOR(age / 3.0), EXP(age);
-DUMP result;</code></pre></div><p class="tip">Numeric output is approximate; floating-point digits may vary.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>Approximate output</h3><pre class="output">(20,4.472136,2.7144176,7,6,4.851652e+08)
+DUMP result;</code></pre>
+        </div>
+        <p class="tip">
+          Numeric output is approximate; floating-point digits may vary.
+        </p>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Approximate output</h3>
+            <pre class="output">
+(20,4.472136,2.7144176,7,6,4.851652e+08)
 (21,4.5825757,2.7589242,7,7,1.3188157e+09)
 (20,4.472136,2.7144176,7,6,4.851652e+08)
-(22,4.6904158,2.8020393,8,7,3.5849128e+09)</pre></div></details></article><article id="p12" class="program"><header><span class="number">12</span><div><span class="eyebrow pig">Pig</span><h2>Even or Odd</h2></div></header><p class="note">Check whether each age is even or odd.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+(22,4.6904158,2.8020393,8,7,3.5849128e+09)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p12" class="program">
+        <header>
+          <span class="number">12</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>Even or Odd</h2>
+          </div>
+        </header>
+        <p class="note">Check whether each age is even or odd.</p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 result = FOREACH student GENERATE age, (age % 2 == 0 ? &#x27;EVEN&#x27; : &#x27;ODD&#x27;);
-DUMP result;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(20,EVEN)
+DUMP result;</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Expected output</h3>
+            <pre class="output">
+(20,EVEN)
 (21,ODD)
 (20,EVEN)
-(22,EVEN)</pre></div></details></article><article id="p13" class="program"><header><span class="number">13</span><div><span class="eyebrow pig">Pig</span><h2>Vowel or Not</h2></div></header><p class="note">Check the first character of each name.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+(22,EVEN)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p13" class="program">
+        <header>
+          <span class="number">13</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>Vowel or Not</h2>
+          </div>
+        </header>
+        <p class="note">Check the first character of each name.</p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 letters = FOREACH student GENERATE SUBSTRING(name, 0, 1) AS letter;
 result = FOREACH letters GENERATE letter,
     (letter MATCHES &#x27;[aeiou]&#x27; ? &#x27;VOWEL&#x27; : &#x27;NOT VOWEL&#x27;);
-DUMP result;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(a,VOWEL)
+DUMP result;</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Expected output</h3>
+            <pre class="output">
+(a,VOWEL)
 (p,NOT VOWEL)
 (a,VOWEL)
-(n,NOT VOWEL)</pre></div></details></article><article id="p14" class="program"><header><span class="number">14</span><div><span class="eyebrow pig">Pig</span><h2>Add, Subtract and Multiply</h2></div></header><p class="note">Add, subtract and multiply the first two marks.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+(n,NOT VOWEL)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p14" class="program">
+        <header>
+          <span class="number">14</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>Add, Subtract and Multiply</h2>
+          </div>
+        </header>
+        <p class="note">Add, subtract and multiply the first two marks.</p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 result = FOREACH student GENERATE m1, m2,
     m1 + m2, m1 - m2, m1 * m2;
-DUMP result;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(80,70,150,10,5600)
+DUMP result;</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Expected output</h3>
+            <pre class="output">
+(80,70,150,10,5600)
 (30,40,70,-10,1200)
 (60,70,130,-10,4200)
-(90,80,170,10,7200)</pre></div></details></article><article id="p15" class="program"><header><span class="number">15</span><div><span class="eyebrow pig">Pig</span><h2>Maximum Temperature</h2></div></header><p class="note">Use the year, temperature and quality fields in data2.txt.</p><p class="note">Input: <a href="#shared-inputs"><code>data2.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">emp = LOAD &#x27;data2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+(90,80,170,10,7200)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p15" class="program">
+        <header>
+          <span class="number">15</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>Maximum Temperature</h2>
+          </div>
+        </header>
+        <p class="note">
+          Use the year, temperature and quality fields in data2.txt.
+        </p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data2.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">emp = LOAD &#x27;data2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, dept:chararray, city:chararray, salary:int, year:int, temp:int, quality:int);
 valid = FILTER emp BY temp != 9999 AND
     (quality == 0 OR quality == 1 OR quality == 4 OR quality == 5 OR quality == 9);
 grouped = GROUP valid BY year;
 maximum = FOREACH grouped GENERATE group, MAX(valid.temp);
-DUMP maximum;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(2024,36)
-(2025,34)</pre></div></details></article><article id="p16" class="program"><header><span class="number">16</span><div><span class="eyebrow pig">Pig</span><h2>Maximum Salary by City</h2></div></header><p class="note">Find the highest-paid employee in each city.</p><p class="note">Input: <a href="#shared-inputs"><code>data2.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">emp = LOAD &#x27;data2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+DUMP maximum;</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Expected output</h3>
+            <pre class="output">
+(2024,36)
+(2025,34)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p16" class="program">
+        <header>
+          <span class="number">16</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>Maximum Salary by City</h2>
+          </div>
+        </header>
+        <p class="note">Find the highest-paid employee in each city.</p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data2.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">emp = LOAD &#x27;data2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, dept:chararray, city:chararray, salary:int, year:int, temp:int, quality:int);
 grouped = GROUP emp BY city;
 maxima = FOREACH grouped GENERATE group AS city, MAX(emp.salary) AS salary;
 matched = JOIN emp BY (city, salary), maxima BY (city, salary);
 result = FOREACH matched GENERATE emp::id, emp::name, emp::city, emp::salary;
-DUMP result;</code></pre></div><p class="tip">Ties retain all employees with the maximum salary.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(5,meena,chennai,52000)
-(3,karan,delhi,75000)</pre></div></details></article><article id="p17" class="program"><header><span class="number">17</span><div><span class="eyebrow pig">Pig</span><h2>Regular Expression Filter</h2></div></header><p class="note">Keep names starting with p.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+DUMP result;</code></pre>
+        </div>
+        <p class="tip">Ties retain all employees with the maximum salary.</p>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Expected output</h3>
+            <pre class="output">
+(5,meena,chennai,52000)
+(3,karan,delhi,75000)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p17" class="program">
+        <header>
+          <span class="number">17</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>Regular Expression Filter</h2>
+          </div>
+        </header>
+        <p class="note">Keep names starting with p.</p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 filtered = FILTER student BY name MATCHES &#x27;p.*&#x27;;
-DUMP filtered;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(2,priya,21,chennai,30,40,35)</pre></div></details></article><article id="p18" class="program"><header><span class="number">18</span><div><span class="eyebrow pig">Pig</span><h2>Calculate Percentage</h2></div></header><p class="note">Average three subjects, each out of 100, to get the percentage.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+DUMP filtered;</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Expected output</h3>
+            <pre class="output">(2,priya,21,chennai,30,40,35)</pre>
+          </div>
+        </details>
+      </article>
+      <article id="p18" class="program">
+        <header>
+          <span class="number">18</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>Calculate Percentage</h2>
+          </div>
+        </header>
+        <p class="note">
+          Average three subjects, each out of 100, to get the percentage.
+        </p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 percentage = FOREACH student GENERATE id, (m1 + m2 + m3) / 3.0;
-DUMP percentage;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(1,80.0)
+DUMP percentage;</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Expected output</h3>
+            <pre class="output">
+(1,80.0)
 (2,35.0)
 (3,70.0)
-(4,80.0)</pre></div></details></article><article id="p19" class="program"><header><span class="number">19</span><div><span class="eyebrow pig">Pig</span><h2>Aggregation Functions</h2></div></header><p class="note">Demonstrate aggregation using employee salaries by department.</p><p class="note">Input: <a href="#shared-inputs"><code>data2.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">emp = LOAD &#x27;data2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+(4,80.0)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p19" class="program">
+        <header>
+          <span class="number">19</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>Aggregation Functions</h2>
+          </div>
+        </header>
+        <p class="note">
+          Demonstrate aggregation using employee salaries by department.
+        </p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data2.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">emp = LOAD &#x27;data2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, dept:chararray, city:chararray, salary:int, year:int, temp:int, quality:int);
 grouped = GROUP emp BY dept;
 summary = FOREACH grouped GENERATE group, MAX(emp.salary), MIN(emp.salary),
     COUNT(emp), SUM(emp.salary), AVG(emp.salary);
-DUMP summary;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>department, max, min, count, sum, average</h3><pre class="output">(HR,52000,45000,2,97000,48500.0)
-(IT,75000,60000,2,135000,67500.0)</pre></div></details></article><article id="p20" class="program"><header><span class="number">20</span><div><span class="eyebrow hive">Hive</span><h2>Hive Arithmetic and Logic</h2></div></header><p class="note">Evaluate arithmetic, bitwise, comparison and logical expressions.</p><div class="code"><div class="codebar"><span class="lang hive">Hive</span><button class="copy" aria-label="Copy Hive code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="hive">Select 20+30;
+DUMP summary;</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>department, max, min, count, sum, average</h3>
+            <pre class="output">
+(HR,52000,45000,2,97000,48500.0)
+(IT,75000,60000,2,135000,67500.0)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p20" class="program">
+        <header>
+          <span class="number">20</span>
+          <div>
+            <span class="eyebrow hive">Hive</span>
+            <h2>Hive Arithmetic and Logic</h2>
+          </div>
+        </header>
+        <p class="note">
+          Evaluate arithmetic, bitwise, comparison and logical expressions.
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang hive">Hive</span
+            ><button class="copy" aria-label="Copy Hive code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="hive">Select 20+30;
 Select 20-30;
 Select 20*30;
 Select 20/30;
@@ -159,7 +1647,116 @@ Select 20=20;
 Select 20&lt;&gt;30;
 Select (20&gt;10) and (30&gt;20);
 Select (20&gt;30) or (30&gt;20);
-Select not(20&gt;30);</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><div class="tablewrap"><table><thead><tr><th>Expression</th><th>Result</th></tr></thead><tbody><tr><td><code>select 20+30;</code></td><td>50</td></tr><tr><td><code>select 20-30;</code></td><td>-10</td></tr><tr><td><code>select 20*30;</code></td><td>600</td></tr><tr><td><code>select 20/30;</code></td><td>0.6666666666666666</td></tr><tr><td><code>select 40%30;</code></td><td>10</td></tr><tr><td><code>select 20&amp;30;</code></td><td>20</td></tr><tr><td><code>select 20|30;</code></td><td>30</td></tr><tr><td><code>select 20^30;</code></td><td>10</td></tr><tr><td><code>select ~20;</code></td><td>-21</td></tr><tr><td><code>select 20&gt;30;</code></td><td>false</td></tr><tr><td><code>select 20&lt;30;</code></td><td>true</td></tr><tr><td><code>select 20=20;</code></td><td>true</td></tr><tr><td><code>select 20&lt;&gt;30;</code></td><td>true</td></tr><tr><td><code>select (20&gt;10) and (30&gt;20);</code></td><td>true</td></tr><tr><td><code>select (20&gt;30) or (30&gt;20);</code></td><td>true</td></tr><tr><td><code>select not(20&gt;30);</code></td><td>true</td></tr></tbody></table></div></div></details></article><article id="p21" class="program"><header><span class="number">21</span><div><span class="eyebrow hive">Hive</span><h2>Hive Mathematical Operations</h2></div></header><p class="note">Evaluate the mathematical functions in the record.</p><div class="code"><div class="codebar"><span class="lang hive">Hive</span><button class="copy" aria-label="Copy Hive code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="hive">Select round(45.678);
+Select not(20&gt;30);</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <div class="tablewrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Expression</th>
+                    <th>Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>select 20+30;</code></td>
+                    <td>50</td>
+                  </tr>
+                  <tr>
+                    <td><code>select 20-30;</code></td>
+                    <td>-10</td>
+                  </tr>
+                  <tr>
+                    <td><code>select 20*30;</code></td>
+                    <td>600</td>
+                  </tr>
+                  <tr>
+                    <td><code>select 20/30;</code></td>
+                    <td>0.6666666666666666</td>
+                  </tr>
+                  <tr>
+                    <td><code>select 40%30;</code></td>
+                    <td>10</td>
+                  </tr>
+                  <tr>
+                    <td><code>select 20&amp;30;</code></td>
+                    <td>20</td>
+                  </tr>
+                  <tr>
+                    <td><code>select 20|30;</code></td>
+                    <td>30</td>
+                  </tr>
+                  <tr>
+                    <td><code>select 20^30;</code></td>
+                    <td>10</td>
+                  </tr>
+                  <tr>
+                    <td><code>select ~20;</code></td>
+                    <td>-21</td>
+                  </tr>
+                  <tr>
+                    <td><code>select 20&gt;30;</code></td>
+                    <td>false</td>
+                  </tr>
+                  <tr>
+                    <td><code>select 20&lt;30;</code></td>
+                    <td>true</td>
+                  </tr>
+                  <tr>
+                    <td><code>select 20=20;</code></td>
+                    <td>true</td>
+                  </tr>
+                  <tr>
+                    <td><code>select 20&lt;&gt;30;</code></td>
+                    <td>true</td>
+                  </tr>
+                  <tr>
+                    <td><code>select (20&gt;10) and (30&gt;20);</code></td>
+                    <td>true</td>
+                  </tr>
+                  <tr>
+                    <td><code>select (20&gt;30) or (30&gt;20);</code></td>
+                    <td>true</td>
+                  </tr>
+                  <tr>
+                    <td><code>select not(20&gt;30);</code></td>
+                    <td>true</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+      </article>
+      <article id="p21" class="program">
+        <header>
+          <span class="number">21</span>
+          <div>
+            <span class="eyebrow hive">Hive</span>
+            <h2>Hive Mathematical Operations</h2>
+          </div>
+        </header>
+        <p class="note">Evaluate the mathematical functions in the record.</p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang hive">Hive</span
+            ><button class="copy" aria-label="Copy Hive code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="hive">Select round(45.678);
 Select round(45.678,2);
 Select floor(45.678);
 Select ceil(45.678);
@@ -174,7 +1771,118 @@ Select factorial(5);
 Select greatest(10,20,5);
 Select least(10,20,5);
 Select bin(10);
-Select hex(255);</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><div class="tablewrap"><table><thead><tr><th>Expression</th><th>Result</th></tr></thead><tbody><tr><td><code>select round(45.678);</code></td><td>46</td></tr><tr><td><code>select round(45.678,2);</code></td><td>45.68</td></tr><tr><td><code>select floor(45.678);</code></td><td>45</td></tr><tr><td><code>select ceil(45.678);</code></td><td>46</td></tr><tr><td><code>select sqrt(81);</code></td><td>9.0</td></tr><tr><td><code>select pow(2,5);</code></td><td>32.0</td></tr><tr><td><code>select abs(-25);</code></td><td>25</td></tr><tr><td><code>select exp(1);</code></td><td>2.718281828459045</td></tr><tr><td><code>select ln(10);</code></td><td>2.302585092994046</td></tr><tr><td><code>select log10(100);</code></td><td>2.0</td></tr><tr><td><code>select log2(8);</code></td><td>3.0</td></tr><tr><td><code>select factorial(5);</code></td><td>120</td></tr><tr><td><code>select greatest(10,20,5);</code></td><td>20</td></tr><tr><td><code>select least(10,20,5);</code></td><td>5</td></tr><tr><td><code>select bin(10);</code></td><td>1010</td></tr><tr><td><code>select hex(255);</code></td><td>FF</td></tr></tbody></table></div></div></details></article><article id="p22" class="program"><header><span class="number">22</span><div><span class="eyebrow hive">Hive</span><h2>Hive String Operations</h2></div></header><p class="note">Evaluate string functions supported by CloudxLab Hive 1.2.</p><div class="code"><div class="codebar"><span class="lang hive">Hive</span><button class="copy" aria-label="Copy Hive code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="hive">Select upper(&#x27;hive&#x27;);
+Select hex(255);</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <div class="tablewrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Expression</th>
+                    <th>Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>select round(45.678);</code></td>
+                    <td>46</td>
+                  </tr>
+                  <tr>
+                    <td><code>select round(45.678,2);</code></td>
+                    <td>45.68</td>
+                  </tr>
+                  <tr>
+                    <td><code>select floor(45.678);</code></td>
+                    <td>45</td>
+                  </tr>
+                  <tr>
+                    <td><code>select ceil(45.678);</code></td>
+                    <td>46</td>
+                  </tr>
+                  <tr>
+                    <td><code>select sqrt(81);</code></td>
+                    <td>9.0</td>
+                  </tr>
+                  <tr>
+                    <td><code>select pow(2,5);</code></td>
+                    <td>32.0</td>
+                  </tr>
+                  <tr>
+                    <td><code>select abs(-25);</code></td>
+                    <td>25</td>
+                  </tr>
+                  <tr>
+                    <td><code>select exp(1);</code></td>
+                    <td>2.718281828459045</td>
+                  </tr>
+                  <tr>
+                    <td><code>select ln(10);</code></td>
+                    <td>2.302585092994046</td>
+                  </tr>
+                  <tr>
+                    <td><code>select log10(100);</code></td>
+                    <td>2.0</td>
+                  </tr>
+                  <tr>
+                    <td><code>select log2(8);</code></td>
+                    <td>3.0</td>
+                  </tr>
+                  <tr>
+                    <td><code>select factorial(5);</code></td>
+                    <td>120</td>
+                  </tr>
+                  <tr>
+                    <td><code>select greatest(10,20,5);</code></td>
+                    <td>20</td>
+                  </tr>
+                  <tr>
+                    <td><code>select least(10,20,5);</code></td>
+                    <td>5</td>
+                  </tr>
+                  <tr>
+                    <td><code>select bin(10);</code></td>
+                    <td>1010</td>
+                  </tr>
+                  <tr>
+                    <td><code>select hex(255);</code></td>
+                    <td>FF</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+      </article>
+      <article id="p22" class="program">
+        <header>
+          <span class="number">22</span>
+          <div>
+            <span class="eyebrow hive">Hive</span>
+            <h2>Hive String Operations</h2>
+          </div>
+        </header>
+        <p class="note">
+          Evaluate string functions supported by CloudxLab Hive 1.2.
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang hive">Hive</span
+            ><button class="copy" aria-label="Copy Hive code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="hive">Select upper(&#x27;hive&#x27;);
 Select lower(&#x27;HIVE&#x27;);
 Select length(&#x27;hadoop&#x27;);
 Select concat(&#x27;Big&#x27;,&#x27;Data&#x27;);
@@ -187,7 +1895,141 @@ Select instr(&#x27;hadoop&#x27;,&#x27;do&#x27;);
 Select repeat(&#x27;ab&#x27;,3);
 Select lpad(&#x27;5&#x27;,3,&#x27;0&#x27;);
 Select split(&#x27;a,b,c&#x27;,&#x27;,&#x27;)[1];
-Select initcap(&#x27;hello world&#x27;);</code></pre></div><p class="tip">Hive 1.2 uses regexp_replace here; the record’s replace() needs a newer Hive version.</p><details><summary>Expected output</summary><div class="detailcontent"><div class="tablewrap"><table><thead><tr><th>Expression</th><th>Result</th></tr></thead><tbody><tr><td><code>select upper(&#x27;hive&#x27;);</code></td><td>HIVE</td></tr><tr><td><code>select lower(&#x27;HIVE&#x27;);</code></td><td>hive</td></tr><tr><td><code>select length(&#x27;hadoop&#x27;);</code></td><td>6</td></tr><tr><td><code>select concat(&#x27;Big&#x27;,&#x27;Data&#x27;);</code></td><td>BigData</td></tr><tr><td><code>select concat_ws(&#x27;-&#x27;,&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;);</code></td><td>a-b-c</td></tr><tr><td><code>select substr(&#x27;hadoop&#x27;,1,3);</code></td><td>had</td></tr><tr><td><code>select trim(&#x27;  hive  &#x27;);</code></td><td>hive</td></tr><tr><td><code>select reverse(&#x27;hive&#x27;);</code></td><td>evih</td></tr><tr><td><code>select regexp_replace(&#x27;hello world&#x27;,&#x27;world&#x27;,&#x27;hive&#x27;);</code></td><td>hello hive</td></tr><tr><td><code>select instr(&#x27;hadoop&#x27;,&#x27;do&#x27;);</code></td><td>3</td></tr><tr><td><code>select repeat(&#x27;ab&#x27;,3);</code></td><td>ababab</td></tr><tr><td><code>select lpad(&#x27;5&#x27;,3,&#x27;0&#x27;);</code></td><td>005</td></tr><tr><td><code>select split(&#x27;a,b,c&#x27;,&#x27;,&#x27;)[1];</code></td><td>b</td></tr><tr><td><code>select initcap(&#x27;hello world&#x27;);</code></td><td>Hello World</td></tr></tbody></table></div></div></details></article><article id="p23" class="program"><header><span class="number">23</span><div><span class="eyebrow hive">Hive</span><h2>Hive Data Operations</h2></div></header><p class="note">The record calls this Data Operations; its examples are date functions.</p><div class="code"><div class="codebar"><span class="lang hive">Hive</span><button class="copy" aria-label="Copy Hive code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="hive">Select current_date;
+Select initcap(&#x27;hello world&#x27;);</code></pre>
+        </div>
+        <p class="tip">
+          Hive 1.2 uses regexp_replace here; the record’s replace() needs a
+          newer Hive version.
+        </p>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <div class="tablewrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Expression</th>
+                    <th>Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>select upper(&#x27;hive&#x27;);</code></td>
+                    <td>HIVE</td>
+                  </tr>
+                  <tr>
+                    <td><code>select lower(&#x27;HIVE&#x27;);</code></td>
+                    <td>hive</td>
+                  </tr>
+                  <tr>
+                    <td><code>select length(&#x27;hadoop&#x27;);</code></td>
+                    <td>6</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code
+                        >select concat(&#x27;Big&#x27;,&#x27;Data&#x27;);</code
+                      >
+                    </td>
+                    <td>BigData</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code
+                        >select
+                        concat_ws(&#x27;-&#x27;,&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;);</code
+                      >
+                    </td>
+                    <td>a-b-c</td>
+                  </tr>
+                  <tr>
+                    <td><code>select substr(&#x27;hadoop&#x27;,1,3);</code></td>
+                    <td>had</td>
+                  </tr>
+                  <tr>
+                    <td><code>select trim(&#x27; hive &#x27;);</code></td>
+                    <td>hive</td>
+                  </tr>
+                  <tr>
+                    <td><code>select reverse(&#x27;hive&#x27;);</code></td>
+                    <td>evih</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code
+                        >select regexp_replace(&#x27;hello
+                        world&#x27;,&#x27;world&#x27;,&#x27;hive&#x27;);</code
+                      >
+                    </td>
+                    <td>hello hive</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code
+                        >select instr(&#x27;hadoop&#x27;,&#x27;do&#x27;);</code
+                      >
+                    </td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td><code>select repeat(&#x27;ab&#x27;,3);</code></td>
+                    <td>ababab</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>select lpad(&#x27;5&#x27;,3,&#x27;0&#x27;);</code>
+                    </td>
+                    <td>005</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code
+                        >select split(&#x27;a,b,c&#x27;,&#x27;,&#x27;)[1];</code
+                      >
+                    </td>
+                    <td>b</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>select initcap(&#x27;hello world&#x27;);</code>
+                    </td>
+                    <td>Hello World</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+      </article>
+      <article id="p23" class="program">
+        <header>
+          <span class="number">23</span>
+          <div>
+            <span class="eyebrow hive">Hive</span>
+            <h2>Hive Data Operations</h2>
+          </div>
+        </header>
+        <p class="note">
+          The record calls this Data Operations; its examples are date
+          functions.
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang hive">Hive</span
+            ><button class="copy" aria-label="Copy Hive code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="hive">Select current_date;
 Select year(&#x27;2026-10-01&#x27;);
 Select month(&#x27;2026-10-01&#x27;);
 Select day(&#x27;2026-10-01&#x27;);
@@ -197,7 +2039,127 @@ Select datediff(&#x27;2026-12-31&#x27;,&#x27;2026-10-01&#x27;);
 Select date_format(&#x27;2026-10-01&#x27;,&#x27;dd-MM-yyyy&#x27;);
 Select to_date(&#x27;2026-10-01 10:30:00&#x27;);
 Select add_months(&#x27;2026-10-01&#x27;,3);
-Select last_day(&#x27;2026-10-01&#x27;);</code></pre></div><p class="tip">CURRENT_DATE changes daily. The remaining queries use the fixed date from the record.</p><details><summary>Expected output</summary><div class="detailcontent"><div class="tablewrap"><table><thead><tr><th>Expression</th><th>Result</th></tr></thead><tbody><tr><td><code>select current_date;</code></td><td>Current server date</td></tr><tr><td><code>select year(&#x27;2026-10-01&#x27;);</code></td><td>2026</td></tr><tr><td><code>select month(&#x27;2026-10-01&#x27;);</code></td><td>10</td></tr><tr><td><code>select day(&#x27;2026-10-01&#x27;);</code></td><td>1</td></tr><tr><td><code>select date_add(&#x27;2026-10-01&#x27;,10);</code></td><td>2026-10-11</td></tr><tr><td><code>select date_sub(&#x27;2026-10-01&#x27;,10);</code></td><td>2026-09-21</td></tr><tr><td><code>select datediff(&#x27;2026-12-31&#x27;,&#x27;2026-10-01&#x27;);</code></td><td>91</td></tr><tr><td><code>select date_format(&#x27;2026-10-01&#x27;,&#x27;dd-MM-yyyy&#x27;);</code></td><td>01-10-2026</td></tr><tr><td><code>select to_date(&#x27;2026-10-01 10:30:00&#x27;);</code></td><td>2026-10-01</td></tr><tr><td><code>select add_months(&#x27;2026-10-01&#x27;,3);</code></td><td>2027-01-01</td></tr><tr><td><code>select last_day(&#x27;2026-10-01&#x27;);</code></td><td>2026-10-31</td></tr></tbody></table></div></div></details></article><article id="p24" class="program"><header><span class="number">24</span><div><span class="eyebrow pig">Pig</span><h2>Employee Data Analysis</h2></div></header><p class="note">Filter high salaries, summarize departments and find the top three.</p><p class="note">Input: <a href="#shared-inputs"><code>data2.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">emp = LOAD &#x27;data2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+Select last_day(&#x27;2026-10-01&#x27;);</code></pre>
+        </div>
+        <p class="tip">
+          CURRENT_DATE changes daily. The remaining queries use the fixed date
+          from the record.
+        </p>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <div class="tablewrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Expression</th>
+                    <th>Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>select current_date;</code></td>
+                    <td>Current server date</td>
+                  </tr>
+                  <tr>
+                    <td><code>select year(&#x27;2026-10-01&#x27;);</code></td>
+                    <td>2026</td>
+                  </tr>
+                  <tr>
+                    <td><code>select month(&#x27;2026-10-01&#x27;);</code></td>
+                    <td>10</td>
+                  </tr>
+                  <tr>
+                    <td><code>select day(&#x27;2026-10-01&#x27;);</code></td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>select date_add(&#x27;2026-10-01&#x27;,10);</code>
+                    </td>
+                    <td>2026-10-11</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>select date_sub(&#x27;2026-10-01&#x27;,10);</code>
+                    </td>
+                    <td>2026-09-21</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code
+                        >select
+                        datediff(&#x27;2026-12-31&#x27;,&#x27;2026-10-01&#x27;);</code
+                      >
+                    </td>
+                    <td>91</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code
+                        >select
+                        date_format(&#x27;2026-10-01&#x27;,&#x27;dd-MM-yyyy&#x27;);</code
+                      >
+                    </td>
+                    <td>01-10-2026</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code
+                        >select to_date(&#x27;2026-10-01 10:30:00&#x27;);</code
+                      >
+                    </td>
+                    <td>2026-10-01</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>select add_months(&#x27;2026-10-01&#x27;,3);</code>
+                    </td>
+                    <td>2027-01-01</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <code>select last_day(&#x27;2026-10-01&#x27;);</code>
+                    </td>
+                    <td>2026-10-31</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+      </article>
+      <article id="p24" class="program">
+        <header>
+          <span class="number">24</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>Employee Data Analysis</h2>
+          </div>
+        </header>
+        <p class="note">
+          Filter high salaries, summarize departments and find the top three.
+        </p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data2.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">emp = LOAD &#x27;data2.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, dept:chararray, city:chararray, salary:int, year:int, temp:int, quality:int);
 high_sal = FILTER emp BY salary &gt; 50000;
 DUMP high_sal;
@@ -206,12 +2168,62 @@ dept_stats = FOREACH by_dept GENERATE group, COUNT(emp), AVG(emp.salary), MAX(em
 DUMP dept_stats;
 sorted = ORDER emp BY salary DESC;
 top3 = LIMIT sorted 3;
-DUMP top3;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>high_sal</h3><pre class="output">(1,ravi,IT,delhi,60000,2024,32,0)
-(3,karan,IT,delhi,75000,2025,34,0)
-(5,meena,HR,chennai,52000,2025,9999,0)</pre><h3>dept_stats</h3><pre class="output">(HR,2,48500.0,52000)
-(IT,2,67500.0,75000)</pre><h3>top3</h3><pre class="output">(3,karan,IT,delhi,75000,2025,34,0)
+DUMP top3;</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>high_sal</h3>
+            <pre class="output">
 (1,ravi,IT,delhi,60000,2024,32,0)
-(5,meena,HR,chennai,52000,2025,9999,0)</pre></div></details></article><article id="p25" class="program"><header><span class="number">25</span><div><span class="eyebrow pig">Pig</span><h2>Student Marks Analysis</h2></div></header><p class="note">Calculate total, average, pass/fail, topper and pass/fail counts.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+(3,karan,IT,delhi,75000,2025,34,0)
+(5,meena,HR,chennai,52000,2025,9999,0)</pre
+            >
+            <h3>dept_stats</h3>
+            <pre class="output">
+(HR,2,48500.0,52000)
+(IT,2,67500.0,75000)</pre
+            >
+            <h3>top3</h3>
+            <pre class="output">
+(3,karan,IT,delhi,75000,2025,34,0)
+(1,ravi,IT,delhi,60000,2024,32,0)
+(5,meena,HR,chennai,52000,2025,9999,0)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p25" class="program">
+        <header>
+          <span class="number">25</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>Student Marks Analysis</h2>
+          </div>
+        </header>
+        <p class="note">
+          Calculate total, average, pass/fail, topper and pass/fail counts.
+        </p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 result = FOREACH student GENERATE id, name, (m1 + m2 + m3) AS total,
     (m1 + m2 + m3) / 3.0 AS average,
@@ -222,30 +2234,275 @@ topper = LIMIT ranked 1;
 DUMP topper;
 grouped = GROUP result BY status;
 summary = FOREACH grouped GENERATE group, COUNT(result);
-DUMP summary;</code></pre></div><p class="tip">Pass/fail uses average &gt;= 40, as in the record.</p><details><summary>Expected output</summary><div class="detailcontent"><h3>result</h3><pre class="output">(1,amit,240,80.0,Pass)
+DUMP summary;</code></pre>
+        </div>
+        <p class="tip">Pass/fail uses average &gt;= 40, as in the record.</p>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>result</h3>
+            <pre class="output">
+(1,amit,240,80.0,Pass)
 (2,priya,105,35.0,Fail)
 (3,arun,210,70.0,Pass)
-(4,neha,240,80.0,Pass)</pre><h3>topper</h3><pre class="output">(1,amit,240,80.0,Pass)</pre><h3>summary</h3><pre class="output">(Fail,1)
-(Pass,3)</pre></div></details></article><article id="p26" class="program"><header><span class="number">+</span><div><span class="eyebrow pig">Pig</span><h2>Word Count</h2></div></header><p class="note">Tokenize names and cities, then count repeated words.</p><p class="note">Input: <a href="#shared-inputs"><code>data1.txt</code></a></p><div class="code"><div class="codebar"><span class="lang pig">Pig</span><button class="copy" aria-label="Copy Pig code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></svg><span>Copy</span></button></div><pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
+(4,neha,240,80.0,Pass)</pre
+            >
+            <h3>topper</h3>
+            <pre class="output">(1,amit,240,80.0,Pass)</pre>
+            <h3>summary</h3>
+            <pre class="output">
+(Fail,1)
+(Pass,3)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <article id="p26" class="program">
+        <header>
+          <span class="number">+</span>
+          <div>
+            <span class="eyebrow pig">Pig</span>
+            <h2>Word Count</h2>
+          </div>
+        </header>
+        <p class="note">
+          Tokenize names and cities, then count repeated words.
+        </p>
+        <p class="note">
+          Input: <a href="#shared-inputs"><code>data1.txt</code></a>
+        </p>
+        <div class="code">
+          <div class="codebar">
+            <span class="lang pig">Pig</span
+            ><button class="copy" aria-label="Copy Pig code">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                aria-hidden="true"
+              >
+                <rect x="8" y="8" width="12" height="12" rx="2" />
+                <path d="M16 8V4H4v12h4" /></svg
+              ><span>Copy</span>
+            </button>
+          </div>
+          <pre><code data-language="pig">student = LOAD &#x27;data1.txt&#x27; USING PigStorage(&#x27;,&#x27;)
     AS (id:int, name:chararray, age:int, city:chararray, m1:int, m2:int, m3:int);
 lines = FOREACH student GENERATE CONCAT(name, CONCAT(&#x27; &#x27;, city)) AS line;
 words = FOREACH lines GENERATE FLATTEN(TOKENIZE(line)) AS word;
 grouped = GROUP words BY word;
 counts = FOREACH grouped GENERATE group, COUNT(words);
-DUMP counts;</code></pre></div><details><summary>Expected output</summary><div class="detailcontent"><h3>Expected output</h3><pre class="output">(amit,1)
+DUMP counts;</code></pre>
+        </div>
+        <details>
+          <summary>Expected output</summary>
+          <div class="detailcontent">
+            <h3>Expected output</h3>
+            <pre class="output">
+(amit,1)
 (arun,1)
 (chennai,2)
 (delhi,2)
 (neha,1)
-(priya,1)</pre></div></details></article><footer>Based on the BDA lab record. Pig 0.16 · Hive 1.2 reference.</footer></main><script>
-const $=s=>document.querySelector(s),all=s=>[...document.querySelectorAll(s)];
-const escapeHTML=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const keywords=new Set('LOAD USING AS DUMP STORE INTO GROUP BY FOREACH GENERATE FLATTEN JOIN LEFT RIGHT FULL OUTER UNION SPLIT IF FILTER ORDER ASC DESC LIMIT AND OR NOT MATCHES SELECT WHERE TRUE FALSE NULL CASE WHEN THEN ELSE END IS IN DISTINCT'.split(' '));
-const functions=new Set('PIGSTORAGE MAX MIN COUNT SUM AVG ROUND SQRT CBRT CEIL FLOOR EXP CONCAT UCFIRST LCFIRST UPPER LOWER SIZE TOKENIZE ABS ACOS ASIN ATAN COS SIN TAN DEGREES RADIANS LOG LOG10 LOG2 LN POW POWER RAND SIGN FACTORIAL BIN HEX UNHEX CONV PMOD GREATEST LEAST LENGTH REVERSE SUBSTR SUBSTRING TRIM LTRIM RTRIM LPAD RPAD REPEAT SPACE REGEXP_REPLACE REGEXP_EXTRACT SPLIT INITCAP ASCII CHR FIND_IN_SET INSTR LOCATE TRANSLATE CURRENT_DATE CURRENT_TIMESTAMP TO_DATE YEAR MONTH DAY HOUR MINUTE SECOND WEEKOFYEAR DATEDIFF DATE_ADD DATE_SUB ADD_MONTHS LAST_DAY NEXT_DAY TRUNC MONTHS_BETWEEN DATE_FORMAT UNIX_TIMESTAMP FROM_UNIXTIME'.split(' '));
-all('code[data-language]').forEach(el=>{el.dataset.raw=el.textContent;el.innerHTML=el.textContent.split(/(--[^\n]*|#[^\n]*|'[^']*'|"[^"]*"|\b\d+(?:\.\d+)?\b|\b[A-Za-z_]\w*\b|[+*/%=<>?:]+)/g).map(t=>{let k='',u=t.toUpperCase();if(/^(--|#)/.test(t))k='comment';else if(/^['"]/.test(t))k='string';else if(/^\d/.test(t))k='number';else if(keywords.has(u))k='keyword';else if(functions.has(u))k='function';else if(/^(int|long|float|double|chararray|bytearray|boolean)$/i.test(t))k='type';else if(/^[+*/%=<>?:]+$/.test(t))k='operator';return k?'<span class="token-'+k+'">'+escapeHTML(t)+'</span>':escapeHTML(t)}).join('')});
-all('.copy').forEach(b=>b.addEventListener('click',async()=>{const text=b.closest('.code').querySelector('code').dataset.raw;try{try{await navigator.clipboard.writeText(text)}catch{const t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';document.body.append(t);t.select();const ok=document.execCommand('copy');t.remove();b.focus();if(!ok)throw Error('Copy failed')}b.classList.add('copied');b.querySelector('span').textContent='Copied';b.setAttribute('aria-label','Copied to clipboard');setTimeout(()=>{b.classList.remove('copied');b.querySelector('span').textContent='Copy';b.setAttribute('aria-label','Copy code')},1600)}catch{b.querySelector('span').textContent='Select & copy';}}));
-const cards=all('.program'),links=all('nav a');$('#search').addEventListener('input',e=>{const q=e.target.value.toLowerCase().trim();let count=0;cards.forEach((c,i)=>{const match=!q||(/^\d+$/.test(q)?c.id==='p'+Number(q):c.textContent.toLowerCase().includes(q));c.hidden=!match;links[i].hidden=!match;if(match)count++});$('#empty').hidden=count>0});
-const sidebar=$('#sidebar'),menu=$('#menu'),backdrop=$('#backdrop');function toggle(open){sidebar.classList.toggle('open',open);backdrop.classList.toggle('open',open);document.body.classList.toggle('menuopen',open);menu.setAttribute('aria-expanded',String(open));if(open){sidebar.setAttribute('role','dialog');sidebar.setAttribute('aria-modal','true');sidebar.setAttribute('aria-label','Program navigation');$('#close').focus()}else{sidebar.removeAttribute('role');sidebar.removeAttribute('aria-modal');menu.focus()}}menu.onclick=()=>toggle(true);$('#close').onclick=backdrop.onclick=()=>toggle(false);links.forEach(a=>a.onclick=()=>{if(sidebar.classList.contains('open'))toggle(false)});document.addEventListener('keydown',e=>{if(!sidebar.classList.contains('open'))return;if(e.key==='Escape')toggle(false);if(e.key==='Tab'){const f=all('#sidebar button,#sidebar input,#sidebar a').filter(x=>!x.hidden&&x.getClientRects().length),first=f[0],last=f.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});matchMedia('(min-width:761px)').addEventListener('change',e=>{if(e.matches&&sidebar.classList.contains('open'))toggle(false)});
-const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){links.forEach(a=>{const active=a.hash==='#'+e.target.id;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}}),{rootMargin:'-5% 0px -70% 0px'});cards.forEach(c=>observer.observe(c));
-all('details').forEach(d=>{const s=d.querySelector('summary'),content=d.querySelector('.detailcontent');let animation;s.addEventListener('click',e=>{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;e.preventDefault();animation?.cancel();const start=d.getBoundingClientRect().height;const opening=!d.open||d.dataset.closing==='true';d.dataset.closing=String(!opening);d.open=true;const end=opening?s.offsetHeight+content.offsetHeight+1:s.offsetHeight+1;d.style.overflow='hidden';animation=d.animate({height:[start+'px',end+'px']},{duration:220,easing:'cubic-bezier(.2,.7,.2,1)'});animation.onfinish=()=>{d.open=opening;d.style.overflow='';delete d.dataset.closing;animation=null}})});
-</script></body></html>
+(priya,1)</pre
+            >
+          </div>
+        </details>
+      </article>
+      <footer>
+        Based on the BDA lab record. Pig 0.16 · Hive 1.2 reference.
+      </footer>
+    </main>
+    <script>
+      const $ = (s) => document.querySelector(s),
+        all = (s) => [...document.querySelectorAll(s)];
+      const escapeHTML = (s) =>
+        s.replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      const keywords = new Set(
+        "LOAD USING AS DUMP STORE INTO GROUP BY FOREACH GENERATE FLATTEN JOIN LEFT RIGHT FULL OUTER UNION SPLIT IF FILTER ORDER ASC DESC LIMIT AND OR NOT MATCHES SELECT WHERE TRUE FALSE NULL CASE WHEN THEN ELSE END IS IN DISTINCT".split(
+          " ",
+        ),
+      );
+      const functions = new Set(
+        "PIGSTORAGE MAX MIN COUNT SUM AVG ROUND SQRT CBRT CEIL FLOOR EXP CONCAT UCFIRST LCFIRST UPPER LOWER SIZE TOKENIZE ABS ACOS ASIN ATAN COS SIN TAN DEGREES RADIANS LOG LOG10 LOG2 LN POW POWER RAND SIGN FACTORIAL BIN HEX UNHEX CONV PMOD GREATEST LEAST LENGTH REVERSE SUBSTR SUBSTRING TRIM LTRIM RTRIM LPAD RPAD REPEAT SPACE REGEXP_REPLACE REGEXP_EXTRACT SPLIT INITCAP ASCII CHR FIND_IN_SET INSTR LOCATE TRANSLATE CURRENT_DATE CURRENT_TIMESTAMP TO_DATE YEAR MONTH DAY HOUR MINUTE SECOND WEEKOFYEAR DATEDIFF DATE_ADD DATE_SUB ADD_MONTHS LAST_DAY NEXT_DAY TRUNC MONTHS_BETWEEN DATE_FORMAT UNIX_TIMESTAMP FROM_UNIXTIME".split(
+          " ",
+        ),
+      );
+      all("code[data-language]").forEach((el) => {
+        el.dataset.raw = el.textContent;
+        el.innerHTML = el.textContent
+          .split(
+            /(--[^\n]*|#[^\n]*|'[^']*'|"[^"]*"|\b\d+(?:\.\d+)?\b|\b[A-Za-z_]\w*\b|[+*/%=<>?:]+)/g,
+          )
+          .map((t) => {
+            let k = "",
+              u = t.toUpperCase();
+            if (/^(--|#)/.test(t)) k = "comment";
+            else if (/^['"]/.test(t)) k = "string";
+            else if (/^\d/.test(t)) k = "number";
+            else if (keywords.has(u)) k = "keyword";
+            else if (functions.has(u)) k = "function";
+            else if (
+              /^(int|long|float|double|chararray|bytearray|boolean)$/i.test(t)
+            )
+              k = "type";
+            else if (/^[+*/%=<>?:]+$/.test(t)) k = "operator";
+            return k
+              ? '<span class="token-' + k + '">' + escapeHTML(t) + "</span>"
+              : escapeHTML(t);
+          })
+          .join("");
+      });
+      all(".copy").forEach((b) =>
+        b.addEventListener("click", async () => {
+          const text = b.closest(".code").querySelector("code").dataset.raw;
+          try {
+            try {
+              await navigator.clipboard.writeText(text);
+            } catch {
+              const t = document.createElement("textarea");
+              t.value = text;
+              t.style.position = "fixed";
+              t.style.opacity = "0";
+              document.body.append(t);
+              t.select();
+              const ok = document.execCommand("copy");
+              t.remove();
+              b.focus();
+              if (!ok) throw Error("Copy failed");
+            }
+            b.classList.add("copied");
+            b.querySelector("span").textContent = "Copied";
+            b.setAttribute("aria-label", "Copied to clipboard");
+            setTimeout(() => {
+              b.classList.remove("copied");
+              b.querySelector("span").textContent = "Copy";
+              b.setAttribute("aria-label", "Copy code");
+            }, 1600);
+          } catch {
+            b.querySelector("span").textContent = "Select & copy";
+          }
+        }),
+      );
+      const cards = all(".program"),
+        links = all("nav a");
+      $("#search").addEventListener("input", (e) => {
+        const q = e.target.value.toLowerCase().trim();
+        let count = 0;
+        cards.forEach((c, i) => {
+          const match =
+            !q ||
+            (/^\d+$/.test(q)
+              ? c.id === "p" + Number(q)
+              : c.textContent.toLowerCase().includes(q));
+          c.hidden = !match;
+          links[i].hidden = !match;
+          if (match) count++;
+        });
+        $("#empty").hidden = count > 0;
+      });
+      const sidebar = $("#sidebar"),
+        menu = $("#menu"),
+        backdrop = $("#backdrop");
+      function toggle(open) {
+        sidebar.classList.toggle("open", open);
+        backdrop.classList.toggle("open", open);
+        document.body.classList.toggle("menuopen", open);
+        menu.setAttribute("aria-expanded", String(open));
+        if (open) {
+          sidebar.setAttribute("role", "dialog");
+          sidebar.setAttribute("aria-modal", "true");
+          sidebar.setAttribute("aria-label", "Program navigation");
+          $("#close").focus();
+        } else {
+          sidebar.removeAttribute("role");
+          sidebar.removeAttribute("aria-modal");
+          menu.focus();
+        }
+      }
+      menu.onclick = () => toggle(true);
+      $("#close").onclick = backdrop.onclick = () => toggle(false);
+      links.forEach(
+        (a) =>
+          (a.onclick = () => {
+            if (sidebar.classList.contains("open")) toggle(false);
+          }),
+      );
+      document.addEventListener("keydown", (e) => {
+        if (!sidebar.classList.contains("open")) return;
+        if (e.key === "Escape") toggle(false);
+        if (e.key === "Tab") {
+          const f = all("#sidebar button,#sidebar input,#sidebar a").filter(
+              (x) => !x.hidden && x.getClientRects().length,
+            ),
+            first = f[0],
+            last = f.at(-1);
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      });
+      matchMedia("(min-width:761px)").addEventListener("change", (e) => {
+        if (e.matches && sidebar.classList.contains("open")) toggle(false);
+      });
+      const observer = new IntersectionObserver(
+        (entries) =>
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              links.forEach((a) => {
+                const active = a.hash === "#" + e.target.id;
+                a.classList.toggle("active", active);
+                if (active) a.setAttribute("aria-current", "location");
+                else a.removeAttribute("aria-current");
+              });
+            }
+          }),
+        { rootMargin: "-5% 0px -70% 0px" },
+      );
+      cards.forEach((c) => observer.observe(c));
+      all("details").forEach((d) => {
+        const s = d.querySelector("summary"),
+          content = d.querySelector(".detailcontent");
+        let animation;
+        s.addEventListener("click", (e) => {
+          if (matchMedia("(prefers-reduced-motion:reduce)").matches) return;
+          e.preventDefault();
+          animation?.cancel();
+          const start = d.getBoundingClientRect().height;
+          const opening = !d.open || d.dataset.closing === "true";
+          d.dataset.closing = String(!opening);
+          d.open = true;
+          const end = opening
+            ? s.offsetHeight + content.offsetHeight + 1
+            : s.offsetHeight + 1;
+          d.style.overflow = "hidden";
+          animation = d.animate(
+            { height: [start + "px", end + "px"] },
+            { duration: 220, easing: "cubic-bezier(.2,.7,.2,1)" },
+          );
+          animation.onfinish = () => {
+            d.open = opening;
+            d.style.overflow = "";
+            delete d.dataset.closing;
+            animation = null;
+          };
+        });
+      });
+    </script>
+  </body>
+</html>
